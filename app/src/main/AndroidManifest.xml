@@ -9,13 +9,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".SplashScreen"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Register" />
+        <activity android:name=".Login" />
+        <activity android:name=".ResetPassword" />
+        <activity android:name=".PreApp" />
+        <activity android:name=".Tutorial" />
+        <activity android:name=".Settings" />
+        <activity android:name=".HrvReport" />
+        <activity android:name=".HrvScan" />
+        <activity android:name=".Setup" />
+        <activity android:name=".Help"></activity>
     </application>
 
 </manifest>
