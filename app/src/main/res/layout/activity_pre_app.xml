@@ -4,6 +4,82 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context=".PreApp">
+
+    <ImageView
+        android:id="@+id/imgV_preapp_clock"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:contentDescription="@string/clockpng_desc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.100000024"
+        app:srcCompat="@drawable/clock" />
+
+    <ImageView
+        android:id="@+id/imgV_preapp_title"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="148dp"
+        android:contentDescription="@string/titlepng_desc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imgV_preapp_clock"
+        app:srcCompat="@drawable/title" />
+
+    <ImageView
+        android:id="@+id/imgV_preapp_line"
+        android:layout_width="335dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:contentDescription="@string/linepng_desc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgV_preapp_clock"
+        app:srcCompat="@drawable/line" />
+
+    <ImageView
+        android:id="@+id/imgV_preapp_subtitle"
+        android:layout_width="335dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="@string/subtitlepng_desc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgV_preapp_line"
+        app:srcCompat="@drawable/subtitle" />
+
+    <ImageView
+        android:id="@+id/imgV_preapp_btn_login"
+        android:layout_width="85dp"
+        android:layout_height="77dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="@string/btn_loginpng_desc"
+        android:onClick="btnLoginToLoginActivity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgV_preapp_subtitle"
+        app:srcCompat="@drawable/btn_login" />
+
+    <ImageView
+        android:id="@+id/imgV_preapp_btn_register"
+        android:layout_width="85dp"
+        android:layout_height="77dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="@string/btn_registerpng_desc"
+        android:onClick="btnRegisterToRegisterActivity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgV_preapp_subtitle"
+        app:srcCompat="@drawable/btn_register" />
 
 </android.support.constraint.ConstraintLayout>

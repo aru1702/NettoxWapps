@@ -1,4 +1,36 @@
 <resources>
     <string name="app_name">Nettox Wapps</string>
+
+    // splash screen layout string
     <string name="gears">gears</string>
+
+    <!-- pre app layout string -->
+    <string name="clockpng_desc">clock.png that used in pre app activity</string>
+    <string name="titlepng_desc">title.png that used in pre app activity</string>
+    <string name="linepng_desc">line.png that used in pre app activity</string>
+    <string name="subtitlepng_desc">subtitle.png that used in pre app activity</string>
+    <string name="btn_loginpng_desc">btn_login.png that used in pre app activity</string>
+    <string name="btn_registerpng_desc">btn_register.png that used in pre app activity</string>
+
+    <!-- login layout string -->
+    <string name="logintitlepng_desc">logintitle.png that used in login activity</string>
+    <string name="email_hint">Email Address</string>
+    <string name="password_hint">Password</string>
+    <string name="btnloginlongpng_desc">btn_login_long.png that used in login activity</string>
+    <string name="forgotaccount">Forgot your password?</string>
+    <string name="recover">Recover here</string>
+
+    <!-- register layout string -->
+    <string name="registertitlepng_desc">registertitle.png that used in login activity</string>
+    <!-- duplicated in login layout
+    <string name="email_hint">Email Address</string>
+    <string name="password_hint">Password</string>
+    -->
+    <string name="fullname_hint">Full Name</string>
+    <string name="repassword_hint">Re-Enter Password</string>
+    <string name="btnregisterlongpng_desc">btn_register_long.png that used in login activity</string>
+
+    <!-- reset password layout string -->
+    <string name="ordertorecover">In order to recover your account, you must enter your valid email address. After this we will send an email to your mailbox to reset your account\'s password.</string>
+
 </resources>
