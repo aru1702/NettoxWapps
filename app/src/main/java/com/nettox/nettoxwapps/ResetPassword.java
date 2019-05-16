@@ -3,6 +3,7 @@ package com.nettox.nettoxwapps;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 public class ResetPassword extends AppCompatActivity {
 
@@ -10,12 +11,14 @@ public class ResetPassword extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
-    }
 
-    public void btnReset (View view) {
-        // define here
+        ImageView reset = (ImageView) findViewById(R.id.imgV_reset_btnresetlong);
 
-        // and after reset complete, make it back to login activity
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
     }
 }

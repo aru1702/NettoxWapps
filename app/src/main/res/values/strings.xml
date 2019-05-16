@@ -17,8 +17,8 @@
     <string name="email_hint">Email Address</string>
     <string name="password_hint">Password</string>
     <string name="btnloginlongpng_desc">btn_login_long.png that used in login activity</string>
-    <string name="forgotaccount">Forgot your password?</string>
-    <string name="recover">Recover here</string>
+    <string name="forgotaccount">Forgot your account?</string>
+    <string name="recover">Reset here.</string>
 
     <!-- register layout string -->
     <string name="registertitlepng_desc">registertitle.png that used in login activity</string>
@@ -32,5 +32,19 @@
 
     <!-- reset password layout string -->
     <string name="ordertorecover">In order to recover your account, you must enter your valid email address. After this we will send an email to your mailbox to reset your account\'s password.</string>
+
+    <!-- main layout string -->
+    <string name="static_Id">ID</string>
+    <string name="static_Watch">Watch:</string>
+    <string name="static_percentage">%</string>
+    <string name="static_YP_LastSleep">Your phone last sleep:</string>
+    <string name="static_minutes">minute(s).</string>
+    <string name="static_YP_Usage">Your phone usage:</string>
+    <string name="static_BPM">BPM</string>
+    <string name="heartwhite_desc">heart_white.png that used in main activity</string>
+    <string name="btnanalyze_desc">btn_analyze_small.png that used in main activity</string>
+    <string name="btnmonitoringresult_desc">btn_monitoringR_small.png that used in main activity</string>
+    <string name="btnsettingsconfig_desc">btn_settings_config.png that used in main activity</string>
+    <string name="btnhelpmenu_desc">btn_helpmenu.png that used in main activity</string>
 
 </resources>

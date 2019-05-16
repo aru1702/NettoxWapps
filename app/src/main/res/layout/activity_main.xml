@@ -4,6 +4,232 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textV_main_staticId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/static_Id"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textV_main_Id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/textV_main_staticId"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="1234567890" />
+
+    <TextView
+        android:id="@+id/textV_main_staticWatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="60dp"
+        android:text="@string/static_Watch"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textV_main_watch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/textV_main_staticWatch"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="100" />
+
+    <TextView
+        android:id="@+id/textV_main_staticPerc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/static_percentage"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/textV_main_watch"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textV_main_staticLastSleep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/static_YP_LastSleep"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textV_main_staticWatch" />
+
+    <TextView
+        android:id="@+id/textV_main_staticLSMinutes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/static_minutes"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textV_main_staticLastSleep" />
+
+    <TextView
+        android:id="@+id/textV_main_lastSleep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/textV_main_staticLSMinutes"
+        app:layout_constraintTop_toBottomOf="@+id/textV_main_staticLastSleep"
+        tools:text="1000" />
+
+    <ImageView
+        android:id="@+id/imageV_main_heartwhote"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/heartwhite_desc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textV_main_staticLSMinutes"
+        app:srcCompat="@drawable/heart_white" />
+
+    <TextView
+        android:id="@+id/textV_main_heartbeat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/colorDarkBrown"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.406"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageV_main_heartwhote"
+        tools:text="120" />
+
+    <TextView
+        android:id="@+id/textV_main_staticBpm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="44dp"
+        android:text="@string/static_BPM"
+        android:textColor="@color/colorDarkBrown"
+        android:textSize="25sp"
+        app:layout_constraintStart_toEndOf="@+id/textV_main_heartbeat"
+        app:layout_constraintTop_toTopOf="@+id/imageV_main_heartwhote" />
+
+    <TextView
+        android:id="@+id/textV_main_staticPhoneUsage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/static_YP_Usage"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageV_main_heartwhote" />
+
+    <TextView
+        android:id="@+id/textV_main_phoneUsage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textV_main_staticPhoneUsage"
+        tools:text="1000" />
+
+    <TextView
+        android:id="@+id/textV_main_staticLSMinutes2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="@string/static_minutes"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/textV_main_phoneUsage"
+        app:layout_constraintTop_toBottomOf="@+id/textV_main_staticPhoneUsage" />
+
+    <ImageView
+        android:id="@+id/imageV_main_analyze"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/btnanalyze_desc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textV_main_staticLSMinutes2"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintVertical_weight="0.5"
+        app:srcCompat="@drawable/btn_analyze_small" />
+
+    <ImageView
+        android:id="@+id/imageV_main_monitoringresult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/btnanalyze_desc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textV_main_staticLSMinutes2"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintVertical_weight="0.5"
+        app:srcCompat="@drawable/btn_monitoringresult_small" />
+
+    <ImageView
+        android:id="@+id/imageV_main_settings_config"
+        android:layout_width="127dp"
+        android:layout_height="100dp"
+        android:contentDescription="@string/btnanalyze_desc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textV_main_staticLSMinutes2"
+        app:layout_constraintVertical_bias="0.9"
+        app:layout_constraintVertical_weight="0.5"
+        app:srcCompat="@drawable/btn_settings_config" />
+
+    <ImageView
+        android:id="@+id/imageV_main_helpmenu"
+        android:layout_width="122dp"
+        android:layout_height="100dp"
+        android:contentDescription="@string/btnanalyze_desc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textV_main_staticLSMinutes2"
+        app:layout_constraintVertical_bias="0.9"
+        app:layout_constraintVertical_weight="0.5"
+        app:srcCompat="@drawable/btn_helpmenu" />
 
 </android.support.constraint.ConstraintLayout>

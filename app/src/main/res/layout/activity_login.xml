@@ -53,9 +53,8 @@
         android:id="@+id/imgV_register_btnregisterlong"
         android:layout_width="283dp"
         android:layout_height="56dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
         android:contentDescription="@string/btnloginlongpng_desc"
-        android:onClick="btnLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editT_register_email"
@@ -77,13 +76,12 @@
         android:id="@+id/textV_login_recover"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="30dp"
         android:text="@string/recover"
         android:textColor="@color/colorHyperlink"
         android:textStyle="bold"
-        android:onClick="recoverAccount"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textV_login_forgot"
         app:layout_constraintTop_toBottomOf="@+id/imgV_register_btnregisterlong" />
+
 </android.support.constraint.ConstraintLayout>

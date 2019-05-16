@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 public class PreApp extends AppCompatActivity {
 
@@ -11,24 +12,22 @@ public class PreApp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pre_app);
-    }
 
-    /**
-     * These method is for onClick imageView
-     * - btn_login
-     * - btn_register
-     * @param view
-     */
+        ImageView login = (ImageView) findViewById(R.id.imgV_preapp_btn_login);
+        ImageView register = (ImageView) findViewById(R.id.imgV_preapp_btn_register);
 
-    public void btnLoginToLoginActivity (View view) {
-        // define here
-        Intent i = new Intent(PreApp.this, Login.class);
-        startActivity(i);
-    }
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PreApp.this, Login.class));
+            }
+        });
 
-    public void btnRegisterToRegisterActivity (View view) {
-        // define here
-        Intent i = new Intent(PreApp.this, Register.class);
-        startActivity(i);
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PreApp.this, Register.class));
+            }
+        });
     }
 }

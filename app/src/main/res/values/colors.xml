@@ -3,6 +3,8 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    // custom color
     <color name="colorBackground">#f3c82e</color>
     <color name="colorHyperlink">#488aff</color>
     <color name="colorDarkBrown">#4a2318</color>
