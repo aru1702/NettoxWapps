@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context=".PreApp">
+    tools:context=".PreAppActivity">
 
     <ImageView
         android:id="@+id/imgV_preapp_clock"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="250dp"
+        android:layout_height="251dp"
         android:contentDescription="@string/clockpng_desc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,13 +21,14 @@
 
     <ImageView
         android:id="@+id/imgV_preapp_title"
-        android:layout_width="300dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="148dp"
+        android:layout_width="231dp"
+        android:layout_height="129dp"
         android:contentDescription="@string/titlepng_desc"
+        app:layout_constraintBottom_toBottomOf="@+id/imgV_preapp_clock"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imgV_preapp_clock"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/title" />
 
     <ImageView
@@ -43,9 +44,9 @@
 
     <ImageView
         android:id="@+id/imgV_preapp_subtitle"
-        android:layout_width="335dp"
+        android:layout_width="266dp"
         android:layout_height="62dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="10dp"
         android:contentDescription="@string/subtitlepng_desc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,31 +54,50 @@
         app:srcCompat="@drawable/subtitle" />
 
     <ImageView
-        android:id="@+id/imgV_preapp_btn_login"
-        android:layout_width="85dp"
-        android:layout_height="77dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:contentDescription="@string/btn_loginpng_desc"
+        android:id="@+id/imgV_preapp_pressStart"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="52dp"
+        android:contentDescription="@string/img_pressstart_desc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgV_preapp_subtitle"
-        app:srcCompat="@drawable/btn_login" />
+        app:srcCompat="@drawable/press_start" />
 
-    <ImageView
-        android:id="@+id/imgV_preapp_btn_register"
-        android:layout_width="85dp"
-        android:layout_height="77dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:contentDescription="@string/btn_registerpng_desc"
+    <TextView
+        android:id="@+id/textV_preapp_staticVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/ver"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textV_preapp_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/version"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textV_preapp_staticVersion" />
+
+    <TextView
+        android:id="@+id/textV_preapp_registered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgV_preapp_subtitle"
-        app:srcCompat="@drawable/btn_register" />
+        tools:text="Registered/Unregistered" />
 
 </android.support.constraint.ConstraintLayout>

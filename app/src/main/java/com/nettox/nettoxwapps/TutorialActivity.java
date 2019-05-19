@@ -3,11 +3,11 @@ package com.nettox.nettoxwapps;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class HrvReport extends AppCompatActivity {
+public class TutorialActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hrv_report);
+        setContentView(R.layout.activity_tutorial);
     }
 }

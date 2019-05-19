@@ -5,16 +5,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-public class ResetPassword extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reset_password);
+        setContentView(R.layout.activity_register);
 
-        ImageView reset = (ImageView) findViewById(R.id.imgV_reset_btnresetlong);
+        ImageView register = (ImageView) findViewById(R.id.imgV_register_btnregisterlong);
 
-        reset.setOnClickListener(new View.OnClickListener() {
+        register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

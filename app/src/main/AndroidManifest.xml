@@ -4,13 +4,13 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_app_new"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
-            android:name=".SplashScreen"
+            android:name=".SplashScreenActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,16 +19,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".Register" />
-        <activity android:name=".Login" />
-        <activity android:name=".ResetPassword" />
-        <activity android:name=".PreApp" />
-        <activity android:name=".Tutorial" />
-        <activity android:name=".Settings" />
-        <activity android:name=".HrvReport" />
-        <activity android:name=".HrvScan" />
-        <activity android:name=".Setup" />
-        <activity android:name=".Help"></activity>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".PreAppActivity" />
+        <activity android:name=".TutorialActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".HrvReportActivity" />
+        <activity android:name=".HrvScanActivity" />
+        <activity android:name=".SetupActivity" />
+        <activity android:name=".HelpActivity" />
+        <activity android:name=".HrvScanResultActivity"></activity>
     </application>
 
 </manifest>

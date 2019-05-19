@@ -1,16 +1,21 @@
 <resources>
     <string name="app_name">Nettox Wapps</string>
 
-    // splash screen layout string
+    <!--splash screen layout string-->
     <string name="gears">gears</string>
 
     <!-- pre app layout string -->
+    <string name="version">1.0.0</string>
+    <string name="ver">Ver.</string>
+
     <string name="clockpng_desc">clock.png that used in pre app activity</string>
     <string name="titlepng_desc">title.png that used in pre app activity</string>
     <string name="linepng_desc">line.png that used in pre app activity</string>
     <string name="subtitlepng_desc">subtitle.png that used in pre app activity</string>
     <string name="btn_loginpng_desc">btn_login.png that used in pre app activity</string>
     <string name="btn_registerpng_desc">btn_register.png that used in pre app activity</string>
+
+    <string name="img_pressstart_desc">press_start.png that used in pre app activity</string>
 
     <!-- login layout string -->
     <string name="logintitlepng_desc">logintitle.png that used in login activity</string>
@@ -46,5 +51,11 @@
     <string name="btnmonitoringresult_desc">btn_monitoringR_small.png that used in main activity</string>
     <string name="btnsettingsconfig_desc">btn_settings_config.png that used in main activity</string>
     <string name="btnhelpmenu_desc">btn_helpmenu.png that used in main activity</string>
+    <string name="static_pleaseWait">Please wait...</string>
+    <string name="scanattention">Let\'s take a look you body condition by  measure your blood pressure and have your  HRV result!
+        \n\nPress the button below!</string>
+
+    <string name="result1">You have good health, sir! I have record the data into our apps so you can check it anytime.
+        \n\nWhile it’s good being a healthy person, i prefer to suggest you to aid yourself with more social interact.</string>
 
 </resources>

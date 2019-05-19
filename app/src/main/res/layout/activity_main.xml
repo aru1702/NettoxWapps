@@ -15,7 +15,7 @@
         android:layout_marginTop="4dp"
         android:text="@string/static_Id"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +27,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textV_main_staticId"
         app:layout_constraintTop_toTopOf="parent"
@@ -41,7 +41,7 @@
         android:layout_marginEnd="60dp"
         android:text="@string/static_Watch"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -53,7 +53,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textV_main_staticWatch"
         app:layout_constraintTop_toTopOf="parent"
@@ -67,7 +67,7 @@
         android:layout_marginTop="4dp"
         android:text="@string/static_percentage"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textV_main_watch"
         app:layout_constraintTop_toTopOf="parent" />
@@ -80,7 +80,7 @@
         android:layout_marginEnd="8dp"
         android:text="@string/static_YP_LastSleep"
         android:textColor="@android:color/black"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textV_main_staticWatch" />
 
@@ -91,7 +91,7 @@
         android:layout_marginEnd="8dp"
         android:text="@string/static_minutes"
         android:textColor="@android:color/black"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textV_main_staticLastSleep" />
 
@@ -101,13 +101,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:textColor="@android:color/black"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/textV_main_staticLSMinutes"
         app:layout_constraintTop_toBottomOf="@+id/textV_main_staticLastSleep"
         tools:text="1000" />
 
     <ImageView
-        android:id="@+id/imageV_main_heartwhote"
+        android:id="@+id/imageV_main_staticHeartWhite"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="10dp"
@@ -127,7 +127,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.406"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageV_main_heartwhote"
+        app:layout_constraintTop_toTopOf="@+id/imageV_main_staticHeartWhite"
         tools:text="120" />
 
     <TextView
@@ -140,7 +140,7 @@
         android:textColor="@color/colorDarkBrown"
         android:textSize="25sp"
         app:layout_constraintStart_toEndOf="@+id/textV_main_heartbeat"
-        app:layout_constraintTop_toTopOf="@+id/imageV_main_heartwhote" />
+        app:layout_constraintTop_toTopOf="@+id/imageV_main_staticHeartWhite" />
 
     <TextView
         android:id="@+id/textV_main_staticPhoneUsage"
@@ -150,9 +150,9 @@
         android:layout_marginTop="10dp"
         android:text="@string/static_YP_Usage"
         android:textColor="@android:color/black"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageV_main_heartwhote" />
+        app:layout_constraintTop_toBottomOf="@+id/imageV_main_staticHeartWhite" />
 
     <TextView
         android:id="@+id/textV_main_phoneUsage"
@@ -160,7 +160,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textColor="@android:color/black"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textV_main_staticPhoneUsage"
         tools:text="1000" />
@@ -172,7 +172,7 @@
         android:layout_marginStart="4dp"
         android:text="@string/static_minutes"
         android:textColor="@android:color/black"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textV_main_phoneUsage"
         app:layout_constraintTop_toBottomOf="@+id/textV_main_staticPhoneUsage" />
 
