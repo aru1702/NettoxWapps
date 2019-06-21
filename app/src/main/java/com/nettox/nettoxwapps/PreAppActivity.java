@@ -1,6 +1,9 @@
 package com.nettox.nettoxwapps;
 
+import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,29 +19,13 @@ public class PreAppActivity extends AppCompatActivity {
     private final String REGISTERED = "Registered";
     private final String UNREGISTERED = "Unregistered";
 
-    ProgressDialog progressDialog;
+    private static boolean alreadyTutorial = false;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pre_app);
-
-//        ImageView login = (ImageView) findViewById(R.id.imgV_preapp_btn_login);
-//        ImageView register = (ImageView) findViewById(R.id.imgV_preapp_btn_register);
-//
-//        login.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(PreApp.this, Login.class));
-//            }
-//        });
-//
-//        register.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(PreApp.this, Register.class));
-//            }
-//        });
 
         pressStart = (ImageView) findViewById(R.id.imgV_preapp_pressStart);
         registered = (TextView) findViewById(R.id.textV_preapp_registered);
@@ -53,10 +40,16 @@ public class PreAppActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                progressDialog.dismiss();
+                if (!new SharedPreferenceManager(PreAppActivity.this).checkPreference()) {
+                    alreadyTutorial = false;
+                    registered.setText(UNREGISTERED);
+                } else {
+                    alreadyTutorial = true;
+                    registered.setText(REGISTERED);
+                }
 
                 pressStart.setVisibility(View.VISIBLE);
-                registered.setText(REGISTERED);
+                progressDialog.dismiss();
             }
         }, 3000);
     }
@@ -65,33 +58,16 @@ public class PreAppActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        /**
-         * TODO:
-         * in here by using SharedPreference it will like this:
-         * -> if ID is present then go to MainActivity
-         * -> if ID is absence then go to RegisterActivity
-         *
-         * this is method to one-time register for user
-         * basically this will generate like login session
-         */
-
         pressStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressDialog = new ProgressDialog();
-                progressDialog.show(getSupportFragmentManager(), "");
+                if (alreadyTutorial) {
+                    startActivity(new Intent(PreAppActivity.this, MainActivity.class));
+                } else {
+                    startActivity(new Intent(PreAppActivity.this, TutorialActivity.class));
+                }
 
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressDialog.dismiss();
-
-                        // go to main menu or dashboard
-                        startActivity(new Intent(PreAppActivity.this, MainActivity.class));
-                        finish();
-                    }
-                }, 3000);
+                finish();
             }
         });
     }

@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">Nettox Wapps</string>
 
+    <!-- Shared Preference Manager and Keys -->
+    <string name="PRF_MAIN_KEY">"MyPref"</string>
+
+    <string name="PRF_TUTORIAL">"TutorialDone"</string>
+    <string name="PRF_USER_NAME">"User.Name"</string>
+    <string name="PRF_USER_AGE">"User.Age"</string>
+    <string name="PRF_USER_GENDER">"User.Gender"</string>
+
     <!--splash screen layout string-->
     <string name="gears">gears</string>
 

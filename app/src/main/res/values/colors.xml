@@ -11,4 +11,9 @@
     <color name="colorDarkBrown">#4a2318</color>
     <color name="colorBlackTint">#80000000</color>
     <color name="colorTransparent">#00FFFFFF</color>
+
+    <color name="colorSlide">#996a24</color>
+
+    <color name="activeDots">#fffafa</color>
+    <color name="inactiveDots">#83878b</color>
 </resources>
