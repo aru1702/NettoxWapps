@@ -22,7 +22,13 @@ public class HrvReportAdapter extends RecyclerView.Adapter<HrvReportAdapter.Prod
     //we are storing all the products in a list
     private List<HrvReport> hrvReportList;
 
-    class ProductViewHolder extends RecyclerView.ViewHolder {
+    private View.OnClickListener onItemClickListener;
+
+    public void setItemClickListener (View.OnClickListener clickListener) {
+        onItemClickListener = clickListener;
+    }
+
+    public class ProductViewHolder extends RecyclerView.ViewHolder {
 
         TextView textDate, textResult;
         ImageView imageEmoji;
@@ -33,6 +39,9 @@ public class HrvReportAdapter extends RecyclerView.Adapter<HrvReportAdapter.Prod
             textResult = itemView.findViewById(R.id.textV_layoutHrvReport_hrvScale);
             textDate = itemView.findViewById(R.id.textV_layoutHrvReport_date);
             imageEmoji = itemView.findViewById(R.id.imageV_layoutHrvReport_imageEmoji);
+
+            itemView.setTag(this);
+            itemView.setOnClickListener(onItemClickListener);
         }
     }
 
@@ -62,8 +71,9 @@ public class HrvReportAdapter extends RecyclerView.Adapter<HrvReportAdapter.Prod
         holder.textResult.setText(String.valueOf(hrvReport.getHrvResult()));
 
         holder.imageEmoji.setImageDrawable(mCtx.getResources().getDrawable(hrvReport.getEmot()));
-    }
 
+
+    }
 
     @Override
     public int getItemCount() {

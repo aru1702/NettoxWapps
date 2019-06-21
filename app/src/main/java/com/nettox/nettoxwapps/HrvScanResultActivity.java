@@ -32,31 +32,35 @@ public class HrvScanResultActivity extends AppCompatActivity {
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HrvScanResultActivity.this, MainActivity.class));
+//                startActivity(new Intent(HrvScanResultActivity.this, MainActivity.class));
                 finish();
             }
         });
 
+        final String S_hrv_result = getIntent().getStringExtra("hrv_result");
+        final String S_bpm_avg = getIntent().getStringExtra("bpm_avg");
+        final String S_hrv_time = getIntent().getStringExtra("hrv_time");
+        final String S_comment = getIntent().getStringExtra("comment");
+
         // test input data
-        int hrv = 120;
-        int bpm = 80;
-        Date date = new Date();
-        date.getTime();
-        System.out.println("Ini waktu: " + date);
-        String comment = getResources().getString(R.string.result1);
+//        int hrv = 120;
+//        int bpm = 80;
+//        Date date = new Date();
+//        date.getTime();
+//        System.out.println("Ini waktu: " + date);
+//        String comment = getResources().getString(R.string.result1);
 
         // set value to layout
-        hrvResult.setText(String.valueOf(hrv));
-        bpmAverage.setText(String.valueOf(bpm));
-        timestamp.setText(sdf.format(date));
-        commentJarvis.setText(comment);
+        hrvResult.setText(S_hrv_result);
+        bpmAverage.setText(S_bpm_avg);
+        timestamp.setText(S_hrv_time);
+        commentJarvis.setText(S_comment);
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
 
-        startActivity(new Intent(HrvScanResultActivity.this, MainActivity.class));
         finish();
     }
 }

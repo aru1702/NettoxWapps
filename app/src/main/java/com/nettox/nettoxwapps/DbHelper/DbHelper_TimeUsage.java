@@ -110,4 +110,42 @@ public class DbHelper_TimeUsage extends SQLiteOpenHelper {
         closeDatabase();
         return product_list;
     }
+
+    public void insertIntoTimeUsage (int last_phone_sleep, int phone_time_usage) {
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        String myQuery = "INSERT INTO " + TB_HRVDATA + " (last_phone_sleep, phone_time_usage) " +
+                " VALUES (" +
+                "" + last_phone_sleep + "," +
+                "" + phone_time_usage + ")";
+
+        database.execSQL(myQuery);
+        database.close();
+    }
+
+    public void updateIntoTimeUsage (int id, int last_phone_sleep, int phone_time_usage) {
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        String myQuery = "UPDATE " + TB_TIMEUSAGE + " SET "
+                + RW_TIMEUSAGE_LASTPHONESLEEP + "=" + last_phone_sleep + ", "
+                + RW_TIMEUSAGE_PHONETIMEUSAGE + "=" + phone_time_usage + " "
+                + "WHERE id = " + id;
+
+        database.execSQL(myQuery);
+        database.close();
+    }
+
+//    public void insertIntoHrvData (int hrv_result, int bpm_avg, String hrv_time, String comment, int emot) {
+//        SQLiteDatabase database = this.getWritableDatabase();
+//
+//        String myQuery = "INSERT INTO " + TB_HRVDATA + " VALUES (" +
+//                "" + hrv_result + "," +
+//                "" + bpm_avg + "," +
+//                "'" + hrv_time + "'," +
+//                "'" + comment + "'," +
+//                "" + emot + ")";
+//
+//        database.execSQL(myQuery);
+//        database.close();
+//    }
 }

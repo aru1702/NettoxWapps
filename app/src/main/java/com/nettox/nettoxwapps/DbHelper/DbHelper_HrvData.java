@@ -113,4 +113,19 @@ public class DbHelper_HrvData extends SQLiteOpenHelper {
         closeDatabase();
         return product_list;
     }
+
+    public void insertIntoHrvData (int hrv_result, int bpm_avg, String hrv_time, String comment, int emot) {
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        String myQuery = "INSERT INTO " + TB_HRVDATA + " (hrv_result, bpm_avg, hrv_time, comment, emot) " +
+                " VALUES (" +
+                "" + hrv_result + "," +
+                "" + bpm_avg + "," +
+                "'" + hrv_time + "'," +
+                "'" + comment + "'," +
+                "" + emot + ")";
+
+        database.execSQL(myQuery);
+        database.close();
+    }
 }

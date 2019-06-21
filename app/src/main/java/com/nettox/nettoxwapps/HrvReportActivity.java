@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.nettox.nettoxwapps.API.HrvReport;
 import com.nettox.nettoxwapps.Adapter.HrvReportAdapter;
@@ -141,5 +142,31 @@ public class HrvReportActivity extends AppCompatActivity {
 
         // setting adapter to recyclerview
         recyclerView.setAdapter(adapter);
+        adapter.setItemClickListener(onItemClickListener);
+
+        myDB.close();
     }
+
+    private View.OnClickListener onItemClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) v.getTag();
+            int position = viewHolder.getAdapterPosition();
+
+            HrvReport item = hrvReportList.get(position);
+            int itemId = item.getId();
+            int counter = 0;
+
+            while (itemId != Integer.valueOf(id[counter])) {
+                counter++;
+            }
+
+            Intent i = new Intent(HrvReportActivity.this, HrvScanResultActivity.class);
+            i.putExtra("hrv_result", hrv_result[counter]);
+            i.putExtra("bpm_avg", bpm_avg[counter]);
+            i.putExtra("hrv_time", hrv_time[counter]);
+            i.putExtra("comment", comment[counter]);
+            startActivity(i);
+        }
+    };
 }

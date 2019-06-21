@@ -57,6 +57,16 @@ public class DbAdapter_HrvData extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = View.inflate(context, R.layout.activity_hrv_scan_result, null);
 
+        TextView TV_hrv_result = (TextView)v.findViewById(R.id.textV_result_hrv);
+        TextView TV_bpm_avg = (TextView)v.findViewById(R.id.textV_result_bpmAvg);
+        TextView TV_hrv_time = (TextView)v.findViewById(R.id.textV_result_time);
+        TextView TV_comment = (TextView)v.findViewById(R.id.textV_result_comment);
+
+        TV_hrv_result.setText(dbModel_hrvDataList.get(position).getHrv_result());
+        TV_bpm_avg.setText(dbModel_hrvDataList.get(position).getBpm_avg());
+        TV_hrv_time.setText(dbModel_hrvDataList.get(position).getHrv_time());
+        TV_comment.setText(dbModel_hrvDataList.get(position).getComment());
+
 //        TextView TV_Judul = (TextView)v.findViewById(R.id.listview_challenge_level_title);
 //        TV_Judul.setText(Adapter_ProductList_Challenges.get(position).getJudul());
 //
