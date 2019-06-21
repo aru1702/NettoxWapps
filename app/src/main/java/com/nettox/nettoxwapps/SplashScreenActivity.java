@@ -1,16 +1,30 @@
 package com.nettox.nettoxwapps;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebView;
+import android.widget.Toast;
+
+import com.nettox.nettoxwapps.DbHelper.DbHelper_HrvData;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import static com.nettox.nettoxwapps.StaticFieldVariables.*;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
     // create WebView field
     WebView webView;
+
+    private DbHelper_HrvData dbHelper_hrvData;
+    File database;
 
     // make WebView for gears.gif
     @Override
@@ -29,6 +43,17 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        dbHelper_hrvData = new DbHelper_HrvData(this);
+        database = getApplicationContext().getDatabasePath(DB_NAME);
+        if (!database.exists()){
+            dbHelper_hrvData.getReadableDatabase();
+            if (copyDatabase(this)){
+                Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show();
+            }
+        }
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -37,5 +62,34 @@ public class SplashScreenActivity extends AppCompatActivity {
                 finish();
             }
         }, 1500);
+    }
+
+    /**
+     * Fungsi copyDatabase digunakan untuk mengkopi seluruh database di ekstenal ke internal
+     *
+     * Fungsi ini dipanggil setelah membuka isi database ekstenal pada file sqlite, lalu dikopi
+     * seluruhnya ke dalam sqlite yang berada di dalam aplikasi dan menjadi database lokal.
+     *
+     * @param context
+     * @return boolean: true/false
+     */
+
+    private boolean copyDatabase (Context context) {
+        try {
+            InputStream inputStream = context.getAssets().open(DB_NAME);
+            String outFileName = DB_PATH + DB_NAME;
+            OutputStream outputStream = new FileOutputStream(outFileName);
+            byte[] buff = new byte[1024];
+            int length = 0;
+            while ((length = inputStream.read(buff)) > 0) {
+                outputStream.write(buff, 0, length);
+            }
+            outputStream.flush();
+            outputStream.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

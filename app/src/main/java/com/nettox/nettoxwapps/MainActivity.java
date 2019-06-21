@@ -11,8 +11,8 @@ import com.nettox.nettoxwapps.API.HrvReport;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int currentId, watchBattery, lastPhoneSleep, lastPhoneUsage, lastBpm;
-    TextView tvCurrentId, tvWatchBattery, tvLastPhoneSleep, tvLastPhoneUsage, tvLastBpm;
+    private int watchBattery, lastPhoneSleep, lastPhoneUsage, lastBpm;
+    TextView tvWatchBattery, tvLastPhoneSleep, tvLastPhoneUsage, tvLastBpm;
     ImageView ivHrvReport, ivHrvScan, ivConfig, ivHelp;
 
     @Override
@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // set TextView components
-        tvCurrentId = (TextView) findViewById(R.id.textV_main_Id);
         tvWatchBattery = (TextView) findViewById(R.id.textV_main_watch);
         tvLastPhoneSleep = (TextView) findViewById(R.id.textV_main_lastSleep);
         tvLastPhoneUsage = (TextView) findViewById(R.id.textV_main_phoneUsage);
@@ -64,14 +63,12 @@ public class MainActivity extends AppCompatActivity {
         ////////////////////////////
 
         // set value into variable
-        currentId = 123456;
         watchBattery = 89;
         lastPhoneSleep = 34;
         lastPhoneUsage = 127;
         lastBpm = 89;
 
         // set value into textView
-        tvCurrentId.setText(String.valueOf(currentId));
         tvWatchBattery.setText(String.valueOf(watchBattery));
         tvLastPhoneUsage.setText(String.valueOf(lastPhoneUsage));
         tvLastPhoneSleep.setText(String.valueOf(lastPhoneSleep));

@@ -57,7 +57,8 @@ public class HrvReportAdapter extends RecyclerView.Adapter<HrvReportAdapter.Prod
 
         //binding the data with the viewholder views
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy - HH:mm:ss");
-        holder.textDate.setText(sdf.format(hrvReport.getNowDate().getTime()));
+
+        holder.textDate.setText(hrvReport.getNowDate());
         holder.textResult.setText(String.valueOf(hrvReport.getHrvResult()));
 
         holder.imageEmoji.setImageDrawable(mCtx.getResources().getDrawable(hrvReport.getEmot()));

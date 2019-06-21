@@ -5,11 +5,11 @@ import java.util.Date;
 public class HrvReport {
 
     private int id;
-    private Date nowDate;
+    private String nowDate;
     private int hrvResult;
     private int emot;
 
-    public HrvReport(int id, Date nowDate, int hrvResult, int emot) {
+    public HrvReport(int id, String nowDate, int hrvResult, int emot) {
         this.id = id;
         this.nowDate = nowDate;
         this.hrvResult = hrvResult;
@@ -24,11 +24,11 @@ public class HrvReport {
         this.id = id;
     }
 
-    public Date getNowDate() {
+    public String getNowDate() {
         return nowDate;
     }
 
-    public void setNowDate(Date nowDate) {
+    public void setNowDate(String nowDate) {
         this.nowDate = nowDate;
     }
 
