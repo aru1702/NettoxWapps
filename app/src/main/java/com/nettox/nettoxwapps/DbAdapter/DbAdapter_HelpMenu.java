@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.nettox.nettoxwapps.DbModel.DbModel_HelpMenu;
 import com.nettox.nettoxwapps.R;
@@ -37,7 +38,10 @@ public class DbAdapter_HelpMenu extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        View v = View.inflate(context, R.layout.layout_help, null);
+        TextView TV_title = (TextView) v.findViewById(R.id.layout_help_textV_title);
+        TV_title.setText(dbModel_helpMenuList.get(position).getTitle());
 
-        return null;
+        return v;
     }
 }

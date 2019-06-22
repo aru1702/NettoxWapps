@@ -27,7 +27,8 @@
         <activity android:name=".HrvScanActivity" />
         <activity android:name=".SetupActivity" />
         <activity android:name=".HelpActivity" />
-        <activity android:name=".HrvScanResultActivity"></activity>
+        <activity android:name=".HrvScanResultActivity" />
+        <activity android:name=".HelpContentActivity"></activity>
     </application>
 
 </manifest>

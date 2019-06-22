@@ -1,9 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground"
     tools:context=".HelpActivity">
 
-</android.support.constraint.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imgV_helpmenu_title"
+        android:layout_width="340dp"
+        android:layout_height="90dp"
+        app:srcCompat="@drawable/btn_helpmenu_long"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"/>
+
+    <ImageView
+        android:id="@+id/imgV_helpmenu_linetitle"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/line"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"/>
+
+    <ListView
+        android:id="@+id/listV_helpmenu_helplist"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="300dp"
+        android:dividerHeight="10dp"
+        />
+
+    <ImageView
+        android:id="@+id/imgV_helpmenu_goback"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:src="@drawable/go_back"
+        android:layout_gravity="right"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        />
+</LinearLayout>
