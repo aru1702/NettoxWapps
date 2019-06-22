@@ -13,6 +13,9 @@
     <color name="colorTransparent">#00FFFFFF</color>
 
     <color name="colorSlide">#996a24</color>
+    <color name="colorSlide2">#ba8434</color>
+    <color name="colorSlide3">#d39d4e</color>
+    <color name="colorSlide4">#edbf7d</color>
 
     <color name="activeDots">#fffafa</color>
     <color name="inactiveDots">#83878b</color>

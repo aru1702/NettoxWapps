@@ -2,17 +2,35 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorSlide">
+    android:background="@color/colorSlide2"
+    android:padding="8dp">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/slide2_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="200dp"
-        android:text="Slide 2"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="8dp"
+        android:text="Wear your wearable device"
         android:textAlignment="center"
-        android:textSize="40sp" />
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/slide2_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/slide2_title"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="8dp"
+        android:text="In order to helps you better, we provide you with wearable device with heart rate measurement using modern HRV method, it's stylish and handy!"
+        android:textAlignment="center"
+        android:textSize="20sp" />
 </RelativeLayout>
