@@ -1,151 +1,208 @@
 package com.nettox.nettoxwapps.DbHelper;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.nettox.nettoxwapps.DbModel.DbModel_TimeUsage;
+import com.nettox.nettoxwapps.SharedPreferenceManager;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 import static com.nettox.nettoxwapps.StaticFieldVariables.*;
 
 public class DbHelper_TimeUsage extends SQLiteOpenHelper {
 
-    private Context dbHelper_context;
-    private SQLiteDatabase dbHelper_sqLiteDatabase;
-
-    /**
-     * Pada fungsi di bawah ini akan membuat fungsi untuk super dengan parameter
-     * context, nama database, factory = null, dan versi database.
-     * @param context
-     */
+    private Context myContext;
+    private String DB_PATH;
 
     public DbHelper_TimeUsage (Context context) {
         super(context, DB_NAME, null, DB_VER);
-        this.dbHelper_context = context;
+
+        if(android.os.Build.VERSION.SDK_INT >= 4.2){
+            DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
+        } else {
+            DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
+        }
+
+        this.myContext = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        /**
-         * bagian ini kosongkan saja
-         */
+        String checkCreate = SharedPreferenceManager.getFromPreference(myContext, TB_TIMEUSAGE);
+        if (checkCreate.isEmpty() || checkCreate.equals("") || checkCreate.equals("false")) {
+            createDatabase(db);
+            SharedPreferenceManager.saveIntoPreference(myContext, "true", TB_TIMEUSAGE);
+        }
+    }
+
+    private void createDatabase (SQLiteDatabase db) {
+        final String query = "CREATE TABLE IF NOT EXISTS " + TB_TIMEUSAGE + " (" +
+                "" + RW_TIMEUSAGE__ID +" INTEGER PRIMARY KEY, " +
+                "" + RW_TIMEUSAGE_LASTPHONESLEEP + " INTEGER NOT NULL, " +
+                "" + RW_TIMEUSAGE_PHONETIMEUSAGE + " INTEGER NOT NULL, " +
+                "" + RW_TIMEUSAGE_LASTUPDATE + " TEXT NOT NULL);";
+        try {
+            db.execSQL(query);
+        } catch (SQLException e) {
+            Log.e("Create Query", "cannot create new TIMEUSAGE table!");
+        }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        /**
-         * bagian ini kosongkan saja
-         */
+
     }
 
-    /**
-     * Pada fungsi openDatabase akan membuka lokasi/path dari database
-     * lalu jika database tidak kosong dan bisa dibuka maka akan membuka database
-     * tersebut.
-     */
+    public int getTimeUsageSize () {
+        SQLiteDatabase db = this.getReadableDatabase();
+        final String query = "SELECT * FROM " + TB_TIMEUSAGE + ";";
+        Cursor res = null;
+        try {
+            res = db.rawQuery(query, null);
+            res.moveToFirst();
 
-    public void openDatabase () {
-        String dbPath = dbHelper_context.getDatabasePath(DB_NAME).getPath();
-        if (dbHelper_sqLiteDatabase != null && dbHelper_sqLiteDatabase.isOpen()) {
-            return;
-        }
-        dbHelper_sqLiteDatabase = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READWRITE);
-    }
+            int num = res.getCount();
+            res.close();
 
-    /**
-     * Selanjutnya pada fungsi closeDatabase akan menutup kembali database
-     * yang telah diimport ke dalam aplikasi karena sudah tersimpan di dalam
-     * SQLite pada aplikasi
-     */
-
-    public void closeDatabase () {
-        if (dbHelper_sqLiteDatabase != null) {
-            dbHelper_sqLiteDatabase.close();
+            return num ;
+        } catch (SQLException e) {
+            Log.e("Get Size: ", "cannot get size of HrvData table!");
+            return 0;
+        } finally {
+            if (res != null) {
+                res.close();
+            }
         }
     }
 
-    /**
-     * Fungsi di bawah ini mengambil database dengan cursor dan query.
-     * Cursor   : sebuah penunjuk untuk SQLiteDatabase
-     * Query    : bahasa pemrograman untuk database
-     *
-     * Perlu dibuat sebuah ArrayList untuk mendapatkan data dari database yang telah diimpor
-     * Lalu menggunakan cursor untuk menunjukkan data yang diambil dari database
-     *
-     * Setiap data yang diambil pada variabel "product" akan dimasukkan ke dalam variabel
-     * array "product_list", cursor akan menuju ke row berikutnya.
-     *
-     * Kerja cursor:
-     *  -> cursor.moveToFirst() : menuju row ke-1
-     *  -> cursor.moveToNext()  : menuju row berikutnya
-     *  -> cursor.isAfterLast() : mengecek ke row setelah yang terakhir
-     *
-     *  Pada penggunaan while, mengecek seluruh row sampai terakhir dan memasukkan ke
-     *  dalam variabel "product" dan mendapatkan setiap data pada atribut di database.
-     *
-     * @return : hasil dari product_list
-     */
+    public ArrayList<DbModel_TimeUsage> getTimeUsageList () {
+        ArrayList<DbModel_TimeUsage> product_list = new ArrayList<>();
 
-    public List<DbModel_TimeUsage> getListProduct () {
-        DbModel_TimeUsage product = null;
-        List<DbModel_TimeUsage> product_list = new ArrayList<>();
-        openDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM " + TB_HRVDATA + ";", null);
+        res.moveToFirst();
 
-        Cursor cursor = dbHelper_sqLiteDatabase.rawQuery("SELECT * FROM " + TB_TIMEUSAGE, null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            product = new DbModel_TimeUsage(
-                    cursor.getInt(0),
-                    cursor.getInt(1),
-                    cursor.getInt(2)
-            );
+        while (!res.isAfterLast()) {
+            DbModel_TimeUsage product = new DbModel_TimeUsage(
+                    res.getInt(res.getColumnIndex(RW_TIMEUSAGE__ID)),
+                    res.getInt(res.getColumnIndex(RW_TIMEUSAGE_LASTPHONESLEEP)),
+                    res.getInt(res.getColumnIndex(RW_TIMEUSAGE_PHONETIMEUSAGE)),
+                    res.getString(res.getColumnIndex(RW_TIMEUSAGE_LASTUPDATE))
+                    );
             product_list.add(product);
-            cursor.moveToNext();
+            res.moveToNext();
         }
-        cursor.close();
-        closeDatabase();
+
+        res.close();
         return product_list;
     }
 
-    public void insertIntoTimeUsage (int last_phone_sleep, int phone_time_usage) {
-        SQLiteDatabase database = this.getWritableDatabase();
+    public DbModel_TimeUsage getTimeUsage (int id) {
+        DbModel_TimeUsage product = null;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM " + TB_HRVDATA + " WHERE " + RW_TIMEUSAGE__ID + "=" + id, null);
+        res.moveToFirst();
 
-        String myQuery = "INSERT INTO " + TB_HRVDATA + " (last_phone_sleep, phone_time_usage) " +
-                " VALUES (" +
-                "" + last_phone_sleep + "," +
-                "" + phone_time_usage + ")";
+        if (res.getCount() > 0) {
+            product = new DbModel_TimeUsage(
+                    res.getInt(res.getColumnIndex(RW_TIMEUSAGE__ID)),
+                    res.getInt(res.getColumnIndex(RW_TIMEUSAGE_LASTPHONESLEEP)),
+                    res.getInt(res.getColumnIndex(RW_TIMEUSAGE_PHONETIMEUSAGE)),
+                    res.getString(res.getColumnIndex(RW_TIMEUSAGE_LASTUPDATE))
+            );
+        } else {
+            Log.e("Get TimeUsage", "no data on ID: " + id);
+        }
 
-        database.execSQL(myQuery);
-        database.close();
+        res.close();
+        return product;
     }
 
-    public void updateIntoTimeUsage (int id, int last_phone_sleep, int phone_time_usage) {
-        SQLiteDatabase database = this.getWritableDatabase();
+    public void insertIntoTimeUsage (int lastPhoneSleep, int phoneTimeUsage, String last_update) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
-        String myQuery = "UPDATE " + TB_TIMEUSAGE + " SET "
-                + RW_TIMEUSAGE_LASTPHONESLEEP + "=" + last_phone_sleep + ", "
-                + RW_TIMEUSAGE_PHONETIMEUSAGE + "=" + phone_time_usage + " "
-                + "WHERE id = " + id;
+        DbHelper_LastId lastIdDbHelper = new DbHelper_LastId(myContext);
+        int lastId = lastIdDbHelper.getTimeUsageLastId();
 
-        database.execSQL(myQuery);
-        database.close();
+        if (lastId == -1) {
+            Log.e("Insert data TimeUsage", "getting -1 from lastId");
+            return;
+        }
+        lastId++;
+
+        lastIdDbHelper.updateTimeUsageLastId(lastId);
+        Log.d("Last TimeUsage id: ", String.valueOf(lastId));
+
+        String[] args = {
+                String.valueOf(lastId),
+                String.valueOf(lastPhoneSleep),
+                String.valueOf(phoneTimeUsage),
+                last_update
+        };
+        final String query = "INSERT INTO " + TB_TIMEUSAGE + " (" +
+                "" + RW_TIMEUSAGE__ID +", " +
+                "" + RW_TIMEUSAGE_LASTPHONESLEEP + ", " +
+                "" + RW_TIMEUSAGE_PHONETIMEUSAGE + ", " +
+                "'" + RW_TIMEUSAGE_LASTUPDATE + "') VALUES (?, ?, ?, ?);";
+
+        try {
+            db.execSQL(query, args);
+        } catch (SQLException e) {
+            Log.e("Insert data TimeUsage", "error while insert query!");
+        }
     }
 
-//    public void insertIntoHrvData (int hrv_result, int bpm_avg, String hrv_time, String comment, int emot) {
-//        SQLiteDatabase database = this.getWritableDatabase();
-//
-//        String myQuery = "INSERT INTO " + TB_HRVDATA + " VALUES (" +
-//                "" + hrv_result + "," +
-//                "" + bpm_avg + "," +
-//                "'" + hrv_time + "'," +
-//                "'" + comment + "'," +
-//                "" + emot + ")";
-//
-//        database.execSQL(myQuery);
-//        database.close();
-//    }
+    @SuppressLint("SimpleDateFormat")
+    public void updateLastPhoneSleep (int id, int lastPhoneSleep) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Date date = new Date();
+        SimpleDateFormat sdf1, sdf2;
+
+        sdf1 = new SimpleDateFormat("EEEE, dd MMMM yyyy");
+        sdf2 = new SimpleDateFormat("HH:mm:ss");
+
+        final String lastUpdate = sdf1.format(date) + " on " + sdf2.format(date);
+
+        final String query = "UPDATE " + TB_LASTID + " SET "
+                + RW_TIMEUSAGE_LASTPHONESLEEP + "=" + lastPhoneSleep + ", "
+                + RW_TIMEUSAGE_LASTUPDATE + "='" + lastUpdate + "'"
+                + " WHERE " + RW_TIMEUSAGE__ID + "=" + id + ";";
+
+        try {
+            db.execSQL(query);
+        } catch (SQLException e) {
+            Log.e("Update TimeUsage", "cannot update LastPhoneSleep on ID: " + id);
+        }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    public void updatePhoneTimeUsage (int id, int phoneTimeUsage) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Date date = new Date();
+        SimpleDateFormat sdf1, sdf2;
+
+        sdf1 = new SimpleDateFormat("EEEE, dd MMMM yyyy");
+        sdf2 = new SimpleDateFormat("HH:mm:ss");
+
+        final String lastUpdate = sdf1.format(date) + " on " + sdf2.format(date);
+
+        final String query = "UPDATE " + TB_LASTID + " SET "
+                + RW_TIMEUSAGE_PHONETIMEUSAGE + "=" + phoneTimeUsage + ", "
+                + RW_TIMEUSAGE_LASTUPDATE + "='" + lastUpdate + "'"
+                + " WHERE " + RW_TIMEUSAGE__ID + "=" + id + ";";
+
+        try {
+            db.execSQL(query);
+        } catch (SQLException e) {
+            Log.e("Update TimeUsage", "cannot update PhoneTimeUsage on ID: " + id);
+        }
+    }
 }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
@@ -12,12 +11,7 @@ import android.widget.Toast;
 import com.nettox.nettoxwapps.DbModel.DbModel_HrvData;
 import com.nettox.nettoxwapps.SharedPreferenceManager;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.nettox.nettoxwapps.StaticFieldVariables.*;
 
@@ -58,7 +52,7 @@ public class DbHelper_HrvData extends SQLiteOpenHelper {
         try {
             db.execSQL(query);
         } catch (SQLException e) {
-            Log.e("Create Query: ", "cannot create new HRVDATA table!");
+            Log.e("Create Query", "cannot create new HRVDATA table!");
         }
     }
 
@@ -80,10 +74,12 @@ public class DbHelper_HrvData extends SQLiteOpenHelper {
             
             return num ;
         } catch (SQLException e) {
-            Log.e("Get Size: ", "cannot get size of HrvData table!");
+            Log.e("Get Size", "cannot get size of HrvData table!");
             return 0;
         } finally {
-            res.close();
+            if (res != null) {
+                res.close();
+            }
         }
     }
 
@@ -118,15 +114,22 @@ public class DbHelper_HrvData extends SQLiteOpenHelper {
         int lastId = lastIdDbHelper.getHrvDataLastId();
 
         if (lastId == -1) {
-            Log.e("Insert data: ", "getting -1 from lastId");
+            Log.e("Insert data HrvData", "getting -1 from lastId");
             Toast.makeText(myContext, "Cannot insert data, try again later!", Toast.LENGTH_SHORT).show();
             return;
         }
         lastId++;
         lastIdDbHelper.updateHrvDataLastId(lastId);
-        Log.d("Last HrvData id: ", String.valueOf(lastId));
+        Log.d("Last HrvData id", String.valueOf(lastId));
 
-        String[] args = {String.valueOf(lastId), String.valueOf(hrv_result), String.valueOf(bpm_avg), comment, String.valueOf(emot), last_update};
+        String[] args = {
+                String.valueOf(lastId),
+                String.valueOf(hrv_result),
+                String.valueOf(bpm_avg),
+                comment,
+                String.valueOf(emot),
+                last_update
+        };
         final String query = "INSERT INTO " + TB_HRVDATA + " (" +
                 "" + RW_HRVDATA__ID +", " +
                 "" + RW_HRVDATA_HRVRESULT + ", " +
@@ -138,10 +141,7 @@ public class DbHelper_HrvData extends SQLiteOpenHelper {
         try {
             db.execSQL(query, args);
         } catch (SQLException e) {
-            Log.e("Insert data: ", "error while insert query!");
+            Log.e("Insert data HrvData", "error while insert query!");
         }
-    }
-
-    public void closeDatabase () {
     }
 }

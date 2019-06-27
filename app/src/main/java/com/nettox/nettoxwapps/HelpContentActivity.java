@@ -8,19 +8,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nettox.nettoxwapps.DbHelper.DbHelper_HelpMenu;
-
-import static com.nettox.nettoxwapps.StaticFieldVariables.TB_HELPMENU;
+import com.nettox.nettoxwapps.DbModel.DbModel_HelpMenu;
 
 public class HelpContentActivity extends AppCompatActivity {
-
-    private String dataId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help_content);
 
-        dataId = getIntent().getStringExtra("id");
+        String dataId = getIntent().getStringExtra("id");
 
         DbHelper_HelpMenu dbHelper = new DbHelper_HelpMenu(this);
 
@@ -29,22 +26,15 @@ public class HelpContentActivity extends AppCompatActivity {
         TextView TV_description = (TextView) findViewById(R.id.txtV_helpcontent_description);
         ImageView IV_image = (ImageView) findViewById(R.id.imgV_helpcontent_image);
 
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String[] selectionArgs = {dataId};
+        DbModel_HelpMenu item = dbHelper.getHelp(Integer.valueOf(dataId));
 
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TB_HELPMENU + " WHERE id=?", selectionArgs);
+        TV_title.setText(item.getTitle());
+        TV_subtitle.setText(item.getSubtitle());
+        TV_description.setText(item.getDescription());
 
-        cursor.moveToFirst();
-        if (cursor.getCount() > 0) {
-            cursor.moveToPosition(0);
+        int imageResource = item.getImage();
 
-            int getImageRef = cursor.getInt(3);
-
-            TV_title.setText(cursor.getString(1));
-            TV_subtitle.setText(cursor.getString(2));
-            TV_description.setText(cursor.getString(4));
-
-            IV_image.setImageResource(getImageRef);
-        }
+        // dummy image
+        IV_image.setImageResource(R.drawable.good);
     }
 }

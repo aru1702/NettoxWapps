@@ -4,18 +4,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.nettox.nettoxwapps.SharedPreferenceManager;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.nettox.nettoxwapps.StaticFieldVariables.*;
 
@@ -59,7 +51,6 @@ public class DbHelper_LastId extends SQLiteOpenHelper {
     }
 
     private void setInitialValueId (SQLiteDatabase db) {
-
         String query;
 
         query = "INSERT INTO " + TB_LASTID + " VALUES ('" + TB_HRVDATA + "', 0);";
@@ -67,20 +58,6 @@ public class DbHelper_LastId extends SQLiteOpenHelper {
 
         query = "INSERT INTO " + TB_LASTID + " VALUES ('" + TB_TIMEUSAGE + "', 0);";
         db.execSQL(query);
-
-//        final String[] tableName = {TB_HRVDATA, TB_TIMEUSAGE};
-//        for (int i = 0 ; i < tableName.length ; i++) {
-//            String[] args = {tableName[i], String.valueOf(0)};
-//            String query = "INSERT INTO " + TB_LASTID + " (" +
-//                "" + RW_LASTID_NAME +", " +
-//                "" + RW_LASTID_LASTINPUT + ") VALUES (?, ?);";
-//            try {
-//                db.execSQL(query, args);
-//            } catch (SQLException e) {
-//                Log.e("Insert Query: ","cannot insert new InitialValueId to TB_LASTID!");
-//                return false;
-//            }
-//        }
     }
 
     @Override
@@ -90,7 +67,6 @@ public class DbHelper_LastId extends SQLiteOpenHelper {
 
     public int getHrvDataLastId () {
         SQLiteDatabase db = this.getReadableDatabase();
-        this.onCreate(db);
 
         final String query = "SELECT " + RW_LASTID_LASTINPUT + " FROM " + TB_LASTID +
                 " WHERE " + RW_LASTID_NAME + "='" + TB_HRVDATA + "';";
@@ -102,16 +78,17 @@ public class DbHelper_LastId extends SQLiteOpenHelper {
             int tempInt = res.getInt(res.getColumnIndex(RW_LASTID_LASTINPUT));
             return tempInt;
         } catch (SQLException e) {
-            Log.e("Get Id: ", "error while query to get HrvData last id!");
+            Log.e("Get HrvData Id", "error while query to get HrvData last id!");
             return -1;
         } finally {
-            res.close();
+            if (res != null) {
+                res.close();
+            }
         }
     }
 
     public int getTimeUsageLastId () {
         SQLiteDatabase db = this.getReadableDatabase();
-        this.onCreate(db);
 
         final String query = "SELECT " + RW_LASTID_LASTINPUT + " FROM " + TB_LASTID +
                 " WHERE " + RW_LASTID_NAME + "='" + TB_TIMEUSAGE + "';";
@@ -123,16 +100,17 @@ public class DbHelper_LastId extends SQLiteOpenHelper {
             int tempInt = res.getInt(res.getColumnIndex(RW_LASTID_LASTINPUT));
             return tempInt;
         } catch (SQLException e) {
-            Log.e("Get Id: ", "error while query to get HrvData last id!");
+            Log.e("Get TimeUsage Id", "error while query to get HrvData last id!");
             return -1;
         } finally {
-            res.close();
+            if (res != null) {
+                res.close();
+            }
         }
     }
 
     public void updateHrvDataLastId (int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        this.onCreate(db);
 
         final String query = "UPDATE " + TB_LASTID +
                 " SET " + RW_LASTID_LASTINPUT + "=" + id +
@@ -141,7 +119,21 @@ public class DbHelper_LastId extends SQLiteOpenHelper {
         try {
             db.execSQL(query);
         } catch (SQLException e) {
-            Log.e("Update HrvData id: ", "cannot update last HrvData Id!");
+            Log.e("Update HrvData id", "cannot update last HrvData Id!");
+        }
+    }
+
+    public void updateTimeUsageLastId (int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        final String query = "UPDATE " + TB_LASTID +
+                " SET " + RW_LASTID_LASTINPUT + "=" + id +
+                " WHERE " + RW_LASTID_NAME + "='" + TB_TIMEUSAGE + "';";
+
+        try {
+            db.execSQL(query);
+        } catch (SQLException e) {
+            Log.e("Update TimeUsage id", "cannot update last TimeUsage Id!");
         }
     }
 }

@@ -1,18 +1,13 @@
 package com.nettox.nettoxwapps;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nettox.nettoxwapps.API.HrvReport;
 import com.nettox.nettoxwapps.Adapter.HrvReportAdapter;
@@ -20,13 +15,8 @@ import com.nettox.nettoxwapps.DbAdapter.DbAdapter_HrvData;
 import com.nettox.nettoxwapps.DbHelper.DbHelper_HrvData;
 import com.nettox.nettoxwapps.DbModel.DbModel_HrvData;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-
-import static com.nettox.nettoxwapps.StaticFieldVariables.TB_HRVDATA;
 
 public class HrvReportActivity extends AppCompatActivity {
 

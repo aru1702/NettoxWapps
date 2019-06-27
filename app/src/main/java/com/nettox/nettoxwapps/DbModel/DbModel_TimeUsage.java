@@ -2,35 +2,45 @@ package com.nettox.nettoxwapps.DbModel;
 
 public class DbModel_TimeUsage {
 
-    private int id, last_phone_sleep, phone_time_usage;
+    private int _id, lastPhoneSleep, phoneTimeUsage;
+    private String lastUpdate;
 
-    public DbModel_TimeUsage(int id, int last_phone_sleep, int phone_time_usage) {
-        this.id = id;
-        this.last_phone_sleep = last_phone_sleep;
-        this.phone_time_usage = phone_time_usage;
+    public DbModel_TimeUsage(int _id, int lastPhoneSleep, int phoneTimeUsage, String lastUpdate) {
+        this._id = _id;
+        this.lastPhoneSleep = lastPhoneSleep;
+        this.phoneTimeUsage = phoneTimeUsage;
+        this.lastUpdate = lastUpdate;
     }
 
-    public int getId() {
-        return id;
+    public int get_id() {
+        return _id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void set_id(int _id) {
+        this._id = _id;
     }
 
-    public int getLast_phone_sleep() {
-        return last_phone_sleep;
+    public int getLastPhoneSleep() {
+        return lastPhoneSleep;
     }
 
-    public void setLast_phone_sleep(int last_phone_sleep) {
-        this.last_phone_sleep = last_phone_sleep;
+    public void setLastPhoneSleep(int lastPhoneSleep) {
+        this.lastPhoneSleep = lastPhoneSleep;
     }
 
-    public int getPhone_time_usage() {
-        return phone_time_usage;
+    public int getPhoneTimeUsage() {
+        return phoneTimeUsage;
     }
 
-    public void setPhone_time_usage(int phone_time_usage) {
-        this.phone_time_usage = phone_time_usage;
+    public void setPhoneTimeUsage(int phoneTimeUsage) {
+        this.phoneTimeUsage = phoneTimeUsage;
+    }
+
+    public String getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(String lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 }

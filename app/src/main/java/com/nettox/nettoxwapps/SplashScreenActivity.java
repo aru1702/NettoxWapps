@@ -1,27 +1,23 @@
 package com.nettox.nettoxwapps;
 
-import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebView;
-import android.widget.Toast;
 
+import com.nettox.nettoxwapps.DbHelper.DbHelper_HelpMenu;
 import com.nettox.nettoxwapps.DbHelper.DbHelper_HrvData;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import static com.nettox.nettoxwapps.StaticFieldVariables.*;
+import com.nettox.nettoxwapps.DbHelper.DbHelper_LastId;
+import com.nettox.nettoxwapps.DbHelper.DbHelper_TimeUsage;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
     // create WebView field
     WebView webView;
+    SQLiteDatabase db;
 
     // make WebView for gears.gif
     @Override
@@ -33,6 +29,25 @@ public class SplashScreenActivity extends AppCompatActivity {
         webView.loadUrl("file:///android_asset/gears_rolling.html");
         webView.getSettings();
         webView.setBackgroundColor(Color.TRANSPARENT);
+
+        // create database
+        DbHelper_LastId dbh1 = new DbHelper_LastId(this);
+        db = dbh1.getWritableDatabase();
+        dbh1.onCreate(db);
+
+        DbHelper_HrvData dbh2 = new DbHelper_HrvData(this);
+        db = dbh2.getWritableDatabase();
+        dbh2.onCreate(db);
+
+        DbHelper_TimeUsage dbh3 = new DbHelper_TimeUsage(this);
+        db = dbh3.getWritableDatabase();
+        dbh3.onCreate(db);
+
+        DbHelper_HelpMenu dbh4 = new DbHelper_HelpMenu(this);
+        db = dbh4.getWritableDatabase();
+        dbh4.onCreate(db);
+
+        db.close();
     }
 
     // after several second, automatic go to Intent
@@ -59,6 +74,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             );
             SharedPreferenceManager.saveIntoPreference(this, "true", "dummy1");
         }
+        // ENDS HERE
 
         new Handler().postDelayed(new Runnable() {
             @Override

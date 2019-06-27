@@ -2,16 +2,18 @@ package com.nettox.nettoxwapps.DbModel;
 
 public class DbModel_HelpMenu {
 
-    private int id;
-    private String title, subtitle, image, description;
+    private int id, image;
+    private String title, subtitle, description;
 
-    public DbModel_HelpMenu(int id, String title, String subtitle, String image, String description) {
+    public DbModel_HelpMenu(int id, String title, int image, String subtitle, String description) {
         this.id = id;
+        this.image = image;
         this.title = title;
         this.subtitle = subtitle;
-        this.image = image;
         this.description = description;
     }
+
+    public DbModel_HelpMenu () {}
 
     public int getId() {
         return id;
@@ -19,6 +21,14 @@ public class DbModel_HelpMenu {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
     }
 
     public String getTitle() {
@@ -35,14 +45,6 @@ public class DbModel_HelpMenu {
 
     public void setSubtitle(String subtitle) {
         this.subtitle = subtitle;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public String getDescription() {

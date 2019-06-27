@@ -9,14 +9,14 @@ import android.widget.TextView;
 import com.nettox.nettoxwapps.DbModel.DbModel_HelpMenu;
 import com.nettox.nettoxwapps.R;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class DbAdapter_HelpMenu extends BaseAdapter {
 
     private Context context;
-    private List<DbModel_HelpMenu> dbModel_helpMenuList;
+    private ArrayList<DbModel_HelpMenu> dbModel_helpMenuList;
 
-    public DbAdapter_HelpMenu(Context context, List<DbModel_HelpMenu> dbModel_helpMenuList) {
+    public DbAdapter_HelpMenu(Context context, ArrayList<DbModel_HelpMenu> dbModel_helpMenuList) {
         this.context = context;
         this.dbModel_helpMenuList = dbModel_helpMenuList;
     }
