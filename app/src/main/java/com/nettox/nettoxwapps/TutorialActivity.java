@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 
 import com.nettox.nettoxwapps.Adapter.TutorialPagerAdapter;
 
+import static com.nettox.nettoxwapps.StaticFieldVariables.TUTORIALKEY;
+
 public class TutorialActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ViewPager mPager;
@@ -107,7 +109,7 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.tutorial_btnSkip: {
                 loadHome();
-                new SharedPreferenceManager(this).writePreference();
+                SharedPreferenceManager.saveIntoPreference(this, "true", TUTORIALKEY);
                 break;
             }
 
@@ -129,7 +131,7 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
             mPager.setCurrentItem(next_slide);
         } else {
             loadHome();
-            new SharedPreferenceManager(this).writePreference();
+            SharedPreferenceManager.saveIntoPreference(this, "true", TUTORIALKEY);
         }
     }
 }

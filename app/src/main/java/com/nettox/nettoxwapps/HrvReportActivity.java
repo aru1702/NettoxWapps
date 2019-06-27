@@ -2,6 +2,7 @@ package com.nettox.nettoxwapps;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import com.nettox.nettoxwapps.DbAdapter.DbAdapter_HrvData;
 import com.nettox.nettoxwapps.DbHelper.DbHelper_HrvData;
 import com.nettox.nettoxwapps.DbModel.DbModel_HrvData;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -36,7 +38,7 @@ public class HrvReportActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     private DbAdapter_HrvData myAdapter;
-    private List<DbModel_HrvData> myProductList;
+    private ArrayList<DbModel_HrvData> myProductList;
     private DbHelper_HrvData myDBHelper;
 
     private String id[] = null;
@@ -71,28 +73,44 @@ public class HrvReportActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        // getting database
         myDBHelper = new DbHelper_HrvData(this);
 
-        SQLiteDatabase myDB = myDBHelper.getReadableDatabase();
-        Cursor myCursor = myDB.rawQuery("SELECT * FROM " + TB_HRVDATA, null);
-        myCursor.moveToFirst();
+        // dummy data
+        myDBHelper.insertIntoHrvData(
+            80,
+            96,
+            "Very good health, sir!",
+            1,
+            "Wednesday, 26 June 2019 on 22:50:00"
+        );
+        myDBHelper.insertIntoHrvData(
+            88,
+            99,
+            "Very good health, sir!",
+            1,
+            "Wednesday, 26 June 2019 on 22:58:00"
+        );
 
-        countData = myCursor.getCount();
-        id = new String[countData];
+        myProductList = myDBHelper.getListProduct();
+
+        countData = myDBHelper.getHrvDataSize();
+        id = new String[countData]; 
         hrv_result = new String[countData];
         bpm_avg = new String[countData];
         hrv_time = new String[countData];
         comment = new String[countData];
         emot = new String[countData];
+        int counter = 0;
 
-        for (int i = 0 ; i < countData ; i++) {
-            myCursor.moveToPosition(i);
-            id[i] = myCursor.getString(0).toString();
-            hrv_result[i] = myCursor.getString(1).toString();
-            bpm_avg[i] = myCursor.getString(2).toString();
-            hrv_time[i] = myCursor.getString(3).toString();
-            comment[i] = myCursor.getString(4).toString();
-            emot[i] = myCursor.getString(5).toString();
+        for (DbModel_HrvData item : myProductList) {
+            id[counter] = String.valueOf(item.getId());
+            hrv_result[counter] = String.valueOf(item.getHrv_result());
+            bpm_avg[counter] = String.valueOf(item.getBpm_avg());
+            comment[counter] = item.getComment();
+            emot[counter] = String.valueOf(item.getEmot());
+            hrv_time[counter] = item.getHrv_time();
+            counter++;
         }
 
         // initializing the productlist
@@ -116,35 +134,12 @@ public class HrvReportActivity extends AppCompatActivity {
             ));
         }
 
-        // adding some items to our list
-        // furthermore using LOOP to get data from DATABASE
-//        hrvReportList.add(new HrvReport(
-//                1,
-//                new Date(),
-//                89,
-//                R.drawable.good
-//        ));
-//        hrvReportList.add(new HrvReport(
-//                2,
-//                new Date(),
-//                82,
-//                R.drawable.good
-//        ));
-//        hrvReportList.add(new HrvReport(
-//                3,
-//                new Date(),
-//                75,
-//                R.drawable.average
-//        ));
-
         // creating recyclerview adapter
         HrvReportAdapter adapter = new HrvReportAdapter(this, hrvReportList);
 
         // setting adapter to recyclerview
         recyclerView.setAdapter(adapter);
         adapter.setItemClickListener(onItemClickListener);
-
-        myDB.close();
     }
 
     private View.OnClickListener onItemClickListener = new View.OnClickListener() {

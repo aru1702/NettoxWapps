@@ -2,40 +2,52 @@ package com.nettox.nettoxwapps;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
+import android.widget.Toast;
+
+import static com.nettox.nettoxwapps.StaticFieldVariables.STATIC_PREFERENCE;
 
 public class SharedPreferenceManager {
 
-    private Context context;
-    private SharedPreferences sharedPreferences;
+    public static SharedPreferences sharedPreferences;
 
-    public SharedPreferenceManager(Context context) {
-        this.context = context;
-        getSharedPreference();
-    }
+    public static boolean saveIntoPreference (Context context, String saveData, String saveKey) {
 
-    private void getSharedPreference () {
-        sharedPreferences = context.getSharedPreferences(context.getString(R.string.PRF_MAIN_KEY), Context.MODE_PRIVATE);
-    }
-
-    public void writePreference () {
+        // open shared preference
+        sharedPreferences = context.getSharedPreferences(STATIC_PREFERENCE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(context.getString(R.string.PRF_TUTORIAL), "true");
-        editor.commit();
+
+        // put the value into the preference
+        editor.putString(saveKey, saveData);
+
+        // commit the value (WRITE)
+        return editor.commit();
     }
 
-    public boolean checkPreference () {
-        boolean status = false;
+    public static String getFromPreference (Context context, String savedKey) {
 
-        if (sharedPreferences.getString(context.getString(R.string.PRF_TUTORIAL), "null").equals("null")) {
-            status = false;
+        // call and open the shared preference
+        sharedPreferences = context.getSharedPreferences(STATIC_PREFERENCE, Context.MODE_PRIVATE);
+
+        // store value from preference into field
+        if (sharedPreferences.contains(savedKey)) {
+            return sharedPreferences.getString(savedKey, "");
         } else {
-            status = true;
+            Log.e("Getting preference: ", "No data on" + savedKey + " is saved!");
         }
 
-        return status;
+        return "";
     }
 
-    public void clearPreference () {
-        sharedPreferences.edit().clear().commit();
+    public boolean removeKeyPreference (Context context, String savedKey) {
+
+        // open shared preference
+        sharedPreferences = context.getSharedPreferences(STATIC_PREFERENCE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        // remove the value into the preference
+        editor.remove(savedKey);
+
+        return editor.commit();
     }
 }

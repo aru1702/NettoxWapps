@@ -2,11 +2,20 @@ package com.nettox.nettoxwapps.DbHelper;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.nettox.nettoxwapps.DbModel.DbModel_HrvData;
+import com.nettox.nettoxwapps.SharedPreferenceManager;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,118 +23,120 @@ import static com.nettox.nettoxwapps.StaticFieldVariables.*;
 
 public class DbHelper_HrvData extends SQLiteOpenHelper {
 
-    private Context dbHelper_context;
-    private SQLiteDatabase dbHelper_sqLiteDatabase;
-
-    /**
-     * Pada fungsi di bawah ini akan membuat fungsi untuk super dengan parameter
-     * context, nama database, factory = null, dan versi database.
-     * @param context
-     */
-
+    private Context myContext;
+    private String DB_PATH;
+    
     public DbHelper_HrvData (Context context) {
         super(context, DB_NAME, null, DB_VER);
-        this.dbHelper_context = context;
+        
+        if(android.os.Build.VERSION.SDK_INT >= 4.2){
+            DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
+        } else {
+            DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
+        }
+
+        this.myContext = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        /**
-         * bagian ini kosongkan saja
-         */
+        String checkCreate = SharedPreferenceManager.getFromPreference(myContext, TB_HRVDATA);
+        if (checkCreate.isEmpty() || checkCreate.equals("") || checkCreate.equals("false")) {
+            createDatabase(db);
+            SharedPreferenceManager.saveIntoPreference(myContext, "true", TB_HRVDATA);
+        }
+    }
+
+    private void createDatabase (SQLiteDatabase db) {
+        final String query = "CREATE TABLE IF NOT EXISTS " + TB_HRVDATA + " (" +
+                "" + RW_HRVDATA__ID +" INTEGER PRIMARY KEY, " +
+                "" + RW_HRVDATA_HRVRESULT + " INTEGER NOT NULL, " +
+                "" + RW_HRVDATA_BPMAVG + " INTEGER NOT NULL, " +
+                "" + RW_HRVDATA_COMMENT + " TEXT NOT NULL, " +
+                "" + RW_HRVDATA_EMOT + " INTEGER NOT NULL, " +
+                "" + RW_HRVDATA_LASTUPDATE + " TEXT NOT NULL);";
+        try {
+            db.execSQL(query);
+        } catch (SQLException e) {
+            Log.e("Create Query: ", "cannot create new HRVDATA table!");
+        }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        /**
-         * bagian ini kosongkan saja
-         */
+        
     }
 
-    /**
-     * Pada fungsi openDatabase akan membuka lokasi/path dari database
-     * lalu jika database tidak kosong dan bisa dibuka maka akan membuka database
-     * tersebut.
-     */
-
-    public void openDatabase () {
-        String dbPath = dbHelper_context.getDatabasePath(DB_NAME).getPath();
-        if (dbHelper_sqLiteDatabase != null && dbHelper_sqLiteDatabase.isOpen()) {
-            return;
-        }
-        dbHelper_sqLiteDatabase = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READWRITE);
-    }
-
-    /**
-     * Selanjutnya pada fungsi closeDatabase akan menutup kembali database
-     * yang telah diimport ke dalam aplikasi karena sudah tersimpan di dalam
-     * SQLite pada aplikasi
-     */
-
-    public void closeDatabase () {
-        if (dbHelper_sqLiteDatabase != null) {
-            dbHelper_sqLiteDatabase.close();
+    public int getHrvDataSize () {
+        SQLiteDatabase db = this.getReadableDatabase();
+        final String query = "SELECT * FROM " + TB_HRVDATA + ";";
+        Cursor res = null;
+        try {
+            res = db.rawQuery(query, null);
+            res.moveToFirst();
+            
+            int num = res.getCount();
+            res.close();
+            
+            return num ;
+        } catch (SQLException e) {
+            Log.e("Get Size: ", "cannot get size of HrvData table!");
+            return 0;
+        } finally {
+            res.close();
         }
     }
 
-    /**
-     * Fungsi di bawah ini mengambil database dengan cursor dan query.
-     * Cursor   : sebuah penunjuk untuk SQLiteDatabase
-     * Query    : bahasa pemrograman untuk database
-     *
-     * Perlu dibuat sebuah ArrayList untuk mendapatkan data dari database yang telah diimpor
-     * Lalu menggunakan cursor untuk menunjukkan data yang diambil dari database
-     *
-     * Setiap data yang diambil pada variabel "product" akan dimasukkan ke dalam variabel
-     * array "product_list", cursor akan menuju ke row berikutnya.
-     *
-     * Kerja cursor:
-     *  -> cursor.moveToFirst() : menuju row ke-1
-     *  -> cursor.moveToNext()  : menuju row berikutnya
-     *  -> cursor.isAfterLast() : mengecek ke row setelah yang terakhir
-     *
-     *  Pada penggunaan while, mengecek seluruh row sampai terakhir dan memasukkan ke
-     *  dalam variabel "product" dan mendapatkan setiap data pada atribut di database.
-     *
-     * @return : hasil dari product_list
-     */
+    public ArrayList<DbModel_HrvData> getListProduct () {
+        ArrayList<DbModel_HrvData> product_list = new ArrayList<>();
 
-    public List<DbModel_HrvData> getListProduct () {
-        DbModel_HrvData product = null;
-        List<DbModel_HrvData> product_list = new ArrayList<>();
-        openDatabase();
-
-        Cursor cursor = dbHelper_sqLiteDatabase.rawQuery("SELECT * FROM " + TB_HRVDATA, null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            product = new DbModel_HrvData(
-                    cursor.getInt(0),
-                    cursor.getInt(1),
-                    cursor.getInt(2),
-                    cursor.getString(3),
-                    cursor.getString(4),
-                    cursor.getInt(5)
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM " + TB_HRVDATA + ";", null);
+        res.moveToFirst();
+        
+        while (!res.isAfterLast()) {
+            DbModel_HrvData product = new DbModel_HrvData(
+                    res.getInt(res.getColumnIndex(RW_HRVDATA__ID)),
+                    res.getInt(res.getColumnIndex(RW_HRVDATA_HRVRESULT)),
+                    res.getInt(res.getColumnIndex(RW_HRVDATA_BPMAVG)),
+                    res.getString(res.getColumnIndex(RW_HRVDATA_LASTUPDATE)),
+                    res.getString(res.getColumnIndex(RW_HRVDATA_COMMENT)),
+                    res.getInt(res.getColumnIndex(RW_HRVDATA_EMOT))
             );
             product_list.add(product);
-            cursor.moveToNext();
+            res.moveToNext();
         }
-        cursor.close();
-        closeDatabase();
+
+        res.close();
         return product_list;
     }
 
-    public void insertIntoHrvData (int hrv_result, int bpm_avg, String hrv_time, String comment, int emot) {
-        SQLiteDatabase database = this.getWritableDatabase();
+    public void insertIntoHrvData (int hrv_result, int bpm_avg, String comment, int emot, String last_update) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
-        String myQuery = "INSERT INTO " + TB_HRVDATA + " (hrv_result, bpm_avg, hrv_time, comment, emot) " +
-                " VALUES (" +
-                "" + hrv_result + "," +
-                "" + bpm_avg + "," +
-                "'" + hrv_time + "'," +
-                "'" + comment + "'," +
-                "" + emot + ")";
+        DbHelper_LastId lastIdDbHelper = new DbHelper_LastId(myContext);
+        int lastId = lastIdDbHelper.getHrvDataLastId();
 
-        database.execSQL(myQuery);
-        database.close();
+        if (lastId == -1) {
+            Log.e("Insert data: ", "getting -1 from lastId");
+            Toast.makeText(myContext, "Cannot insert data, try again later!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        lastId++;
+
+        String[] args = {String.valueOf(lastId), String.valueOf(hrv_result), String.valueOf(bpm_avg), comment, String.valueOf(emot), last_update};
+        final String query = "INSERT INTO " + TB_HRVDATA + " (" +
+                "" + RW_HRVDATA__ID +", " +
+                "" + RW_HRVDATA_HRVRESULT + ", " +
+                "" + RW_HRVDATA_BPMAVG + ", " +
+                "" + RW_HRVDATA_COMMENT + ", " +
+                "" + RW_HRVDATA_EMOT + ", " +
+                "" + RW_HRVDATA_LASTUPDATE + ") VALUES (?, ?, ?, ?, ?, ?);";
+
+        try {
+            db.execSQL(query);
+        } catch (SQLException e) {
+            Log.e("Insert data: ", "error while insert query!");
+        }
     }
 }

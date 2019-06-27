@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import static com.nettox.nettoxwapps.StaticFieldVariables.TUTORIALKEY;
+
 public class PreAppActivity extends AppCompatActivity {
 
     private ImageView pressStart;
@@ -40,7 +42,8 @@ public class PreAppActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (!new SharedPreferenceManager(PreAppActivity.this).checkPreference()) {
+                String getTutorialCondition = SharedPreferenceManager.getFromPreference(PreAppActivity.this, TUTORIALKEY);
+                if (getTutorialCondition.isEmpty() || getTutorialCondition.equals("") || getTutorialCondition.equals("false")) {
                     alreadyTutorial = false;
                     registered.setText(UNREGISTERED);
                 } else {
