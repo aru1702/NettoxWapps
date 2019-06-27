@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nettox.nettoxwapps.API.HrvReport;
@@ -75,71 +76,69 @@ public class HrvReportActivity extends AppCompatActivity {
 
         // getting database
         myDBHelper = new DbHelper_HrvData(this);
-
-        // dummy data
-        myDBHelper.insertIntoHrvData(
-            80,
-            96,
-            "Very good health, sir!",
-            1,
-            "Wednesday, 26 June 2019 on 22:50:00"
-        );
-        myDBHelper.insertIntoHrvData(
-            88,
-            99,
-            "Very good health, sir!",
-            1,
-            "Wednesday, 26 June 2019 on 22:58:00"
-        );
-
         myProductList = myDBHelper.getListProduct();
 
-        countData = myDBHelper.getHrvDataSize();
-        id = new String[countData]; 
-        hrv_result = new String[countData];
-        bpm_avg = new String[countData];
-        hrv_time = new String[countData];
-        comment = new String[countData];
-        emot = new String[countData];
-        int counter = 0;
+        // check if not empty
+        if (myDBHelper.getHrvDataSize() > 0) {
 
-        for (DbModel_HrvData item : myProductList) {
-            id[counter] = String.valueOf(item.getId());
-            hrv_result[counter] = String.valueOf(item.getHrv_result());
-            bpm_avg[counter] = String.valueOf(item.getBpm_avg());
-            comment[counter] = item.getComment();
-            emot[counter] = String.valueOf(item.getEmot());
-            hrv_time[counter] = item.getHrv_time();
-            counter++;
-        }
+            // hide the "no items" text
+            TextView noItems = (TextView) findViewById(R.id.textV_HrvReport_staticNoItemsShowed);
+            noItems.setVisibility(View.INVISIBLE);
 
-        // initializing the productlist
-        hrvReportList = new ArrayList<>();
-        for (int i = 0 ; i < countData ; i++) {
-            int myEmot = 0;
+            // get size
+            countData = myDBHelper.getHrvDataSize();
 
-            if (emot[i].equals("1")) {
-                myEmot = R.drawable.good;
-            } else if (emot[i].equals("2")) {
-                myEmot = R.drawable.average;
-            } else if (emot[i].equals("3")){
-                myEmot = R.drawable.bad;
+            // insert into array
+            id = new String[countData];
+            hrv_result = new String[countData];
+            bpm_avg = new String[countData];
+            hrv_time = new String[countData];
+            comment = new String[countData];
+            emot = new String[countData];
+            int counter = 0;
+
+            for (DbModel_HrvData item : myProductList) {
+                id[counter] = String.valueOf(item.getId());
+                hrv_result[counter] = String.valueOf(item.getHrv_result());
+                bpm_avg[counter] = String.valueOf(item.getBpm_avg());
+                comment[counter] = item.getComment();
+                emot[counter] = String.valueOf(item.getEmot());
+                hrv_time[counter] = item.getHrv_time();
+                counter++;
             }
 
-            hrvReportList.add(new HrvReport(
-                    Integer.valueOf(id[i]),
-                    hrv_time[i],
-                    Integer.valueOf(hrv_result[i]),
-                    myEmot
-            ));
+            // initializing the productlist
+            hrvReportList = new ArrayList<>();
+            for (int i = 0 ; i < countData ; i++) {
+                int myEmot = 0;
+
+                if (emot[i].equals("1")) {
+                    myEmot = R.drawable.good;
+                } else if (emot[i].equals("2")) {
+                    myEmot = R.drawable.average;
+                } else if (emot[i].equals("3")){
+                    myEmot = R.drawable.bad;
+                }
+
+                hrvReportList.add(new HrvReport(
+                        Integer.valueOf(id[i]),
+                        hrv_time[i],
+                        Integer.valueOf(hrv_result[i]),
+                        myEmot
+                ));
+            }
+
+            // creating recyclerview adapter
+            HrvReportAdapter adapter = new HrvReportAdapter(this, hrvReportList);
+
+            // setting adapter to recyclerview
+            recyclerView.setAdapter(adapter);
+            adapter.setItemClickListener(onItemClickListener);
+        } else {
+
+            // hide the adapter
+            recyclerView.setVisibility(View.INVISIBLE);
         }
-
-        // creating recyclerview adapter
-        HrvReportAdapter adapter = new HrvReportAdapter(this, hrvReportList);
-
-        // setting adapter to recyclerview
-        recyclerView.setAdapter(adapter);
-        adapter.setItemClickListener(onItemClickListener);
     }
 
     private View.OnClickListener onItemClickListener = new View.OnClickListener() {
@@ -164,4 +163,11 @@ public class HrvReportActivity extends AppCompatActivity {
             startActivity(i);
         }
     };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        myDBHelper.close();
+    }
 }

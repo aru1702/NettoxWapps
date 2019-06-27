@@ -65,5 +65,6 @@
 
     <string name="result1">You have good health, sir! I have record the data into our apps so you can check it anytime.
         \n\nWhile it’s good being a healthy person, i prefer to suggest you to aid yourself with more social interact.</string>
+    <string name="no_items_is_showed">No items is showed.</string>
 
 </resources>

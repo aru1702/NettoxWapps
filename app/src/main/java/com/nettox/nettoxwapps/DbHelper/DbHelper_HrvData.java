@@ -123,20 +123,25 @@ public class DbHelper_HrvData extends SQLiteOpenHelper {
             return;
         }
         lastId++;
+        lastIdDbHelper.updateHrvDataLastId(lastId);
+        Log.d("Last HrvData id: ", String.valueOf(lastId));
 
         String[] args = {String.valueOf(lastId), String.valueOf(hrv_result), String.valueOf(bpm_avg), comment, String.valueOf(emot), last_update};
         final String query = "INSERT INTO " + TB_HRVDATA + " (" +
                 "" + RW_HRVDATA__ID +", " +
                 "" + RW_HRVDATA_HRVRESULT + ", " +
                 "" + RW_HRVDATA_BPMAVG + ", " +
-                "" + RW_HRVDATA_COMMENT + ", " +
+                "'" + RW_HRVDATA_COMMENT + "', " +
                 "" + RW_HRVDATA_EMOT + ", " +
-                "" + RW_HRVDATA_LASTUPDATE + ") VALUES (?, ?, ?, ?, ?, ?);";
+                "'" + RW_HRVDATA_LASTUPDATE + "') VALUES (?, ?, ?, ?, ?, ?);";
 
         try {
-            db.execSQL(query);
+            db.execSQL(query, args);
         } catch (SQLException e) {
             Log.e("Insert data: ", "error while insert query!");
         }
+    }
+
+    public void closeDatabase () {
     }
 }

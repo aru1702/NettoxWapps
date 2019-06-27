@@ -52,26 +52,35 @@ public class DbHelper_LastId extends SQLiteOpenHelper {
                 "" + RW_LASTID_LASTINPUT + " INTEGER NOT NULL);";
         try {
             db.execSQL(query);
+            setInitialValueId(db);
         } catch (SQLException e) {
             Log.e("Create Query: ", "cannot create new LASTID table!");
         }
     }
 
-    private boolean setInitialValueId (SQLiteDatabase db) {
-        final String[] tableName = {TB_HRVDATA, TB_TIMEUSAGE};
-        for (int i = 0 ; i < tableName.length ; i++) {
-            final String[] args = {tableName[i], String.valueOf(0)};
-            final String query = "INSERT INTO " + TB_LASTID + " (" +
-                "" + RW_LASTID_NAME +", " +
-                "" + RW_LASTID_LASTINPUT + ") VALUES (?, ?);";
-            try {
-                db.execSQL(query, args);
-            } catch (SQLException e) {
-                Log.e("Insert Query: ","cannot insert new InitialValueId to TB_LASTID!");
-                return false;
-            }
-        }
-        return true;
+    private void setInitialValueId (SQLiteDatabase db) {
+
+        String query;
+
+        query = "INSERT INTO " + TB_LASTID + " VALUES ('" + TB_HRVDATA + "', 0);";
+        db.execSQL(query);
+
+        query = "INSERT INTO " + TB_LASTID + " VALUES ('" + TB_TIMEUSAGE + "', 0);";
+        db.execSQL(query);
+
+//        final String[] tableName = {TB_HRVDATA, TB_TIMEUSAGE};
+//        for (int i = 0 ; i < tableName.length ; i++) {
+//            String[] args = {tableName[i], String.valueOf(0)};
+//            String query = "INSERT INTO " + TB_LASTID + " (" +
+//                "" + RW_LASTID_NAME +", " +
+//                "" + RW_LASTID_LASTINPUT + ") VALUES (?, ?);";
+//            try {
+//                db.execSQL(query, args);
+//            } catch (SQLException e) {
+//                Log.e("Insert Query: ","cannot insert new InitialValueId to TB_LASTID!");
+//                return false;
+//            }
+//        }
     }
 
     @Override
@@ -81,8 +90,10 @@ public class DbHelper_LastId extends SQLiteOpenHelper {
 
     public int getHrvDataLastId () {
         SQLiteDatabase db = this.getReadableDatabase();
+        this.onCreate(db);
+
         final String query = "SELECT " + RW_LASTID_LASTINPUT + " FROM " + TB_LASTID +
-                " WHERE " + RW_LASTID_NAME + "=" + TB_HRVDATA + ";";
+                " WHERE " + RW_LASTID_NAME + "='" + TB_HRVDATA + "';";
         Cursor res = null;
         try {
             res = db.rawQuery(query, null);
@@ -98,10 +109,12 @@ public class DbHelper_LastId extends SQLiteOpenHelper {
         }
     }
 
-    public int getLastTimeUsageId () {
+    public int getTimeUsageLastId () {
         SQLiteDatabase db = this.getReadableDatabase();
+        this.onCreate(db);
+
         final String query = "SELECT " + RW_LASTID_LASTINPUT + " FROM " + TB_LASTID +
-                " WHERE " + RW_LASTID_NAME + "=" + TB_TIMEUSAGE + ";";
+                " WHERE " + RW_LASTID_NAME + "='" + TB_TIMEUSAGE + "';";
         Cursor res = null;
         try {
             res = db.rawQuery(query, null);
@@ -114,6 +127,21 @@ public class DbHelper_LastId extends SQLiteOpenHelper {
             return -1;
         } finally {
             res.close();
+        }
+    }
+
+    public void updateHrvDataLastId (int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        this.onCreate(db);
+
+        final String query = "UPDATE " + TB_LASTID +
+                " SET " + RW_LASTID_LASTINPUT + "=" + id +
+                " WHERE " + RW_LASTID_NAME + "='" + TB_HRVDATA + "';";
+
+        try {
+            db.execSQL(query);
+        } catch (SQLException e) {
+            Log.e("Update HrvData id: ", "cannot update last HrvData Id!");
         }
     }
 }

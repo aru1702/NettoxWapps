@@ -23,9 +23,6 @@ public class SplashScreenActivity extends AppCompatActivity {
     // create WebView field
     WebView webView;
 
-    private DbHelper_HrvData dbHelper_hrvData;
-    File database;
-
     // make WebView for gears.gif
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +40,25 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        dbHelper_hrvData = new DbHelper_HrvData(this);
-//        database = getApplicationContext().getDatabasePath(DB_NAME);
-//        if (!database.exists()){
-//            dbHelper_hrvData.getReadableDatabase();
-//            if (copyDatabase(this)){
-//                Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show();
-//            } else {
-//                Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show();
-//            }
-//        }
+        // DUMMY DATA FOR TESTING ONLY
+        if (SharedPreferenceManager.getFromPreference(this, "dummy1") == "") {
+            DbHelper_HrvData dbHelper1 = new DbHelper_HrvData(this);
+            dbHelper1.insertIntoHrvData(
+                    80,
+                    96,
+                    "Very good health, sir!",
+                    1,
+                    "Wednesday, 26 June 2019 on 22:50:00"
+            );
+            dbHelper1.insertIntoHrvData(
+                    88,
+                    99,
+                    "Very good health, sir!",
+                    1,
+                    "Wednesday, 26 June 2019 on 22:58:00"
+            );
+            SharedPreferenceManager.saveIntoPreference(this, "true", "dummy1");
+        }
 
         new Handler().postDelayed(new Runnable() {
             @Override
