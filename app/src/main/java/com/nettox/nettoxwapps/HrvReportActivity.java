@@ -64,6 +64,7 @@ public class HrvReportActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
         // getting database
         myDBHelper = new DbHelper_HrvData(this);
         myProductList = myDBHelper.getListProduct();

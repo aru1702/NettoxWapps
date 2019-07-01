@@ -19,4 +19,8 @@
 
     <color name="activeDots">#fffafa</color>
     <color name="inactiveDots">#83878b</color>
+
+    <color name="colorSendText">#82CAFF</color>
+    <color name="colorStatusText">#FFDB58</color>
+    <color name="colorRecieveText">#00FF00</color>
 </resources>
