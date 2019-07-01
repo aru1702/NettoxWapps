@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 @SuppressLint("ValidFragment")
-class DevicesFragment extends ListFragment{
+public class DevicesFragment extends ListFragment{
     private Menu menu;
     private final BluetoothAdapter bluetoothAdapter;
     private BroadcastReceiver bleDiscoveryBroadcastReceiver;

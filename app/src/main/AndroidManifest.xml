@@ -36,6 +36,7 @@
         <activity android:name=".HrvScanResultActivity" />
         <activity android:name=".HelpContentActivity" />
         <activity android:name=".DeviceScanActivity"/>
+        <service android:name=".SerialService" />
     </application>
 
 </manifest>

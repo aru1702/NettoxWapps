@@ -28,7 +28,7 @@ import android.widget.Toast;
 
 import java.util.Date;
 
-public class TerminalFragment extends Fragment implements ServiceConnection, SerialListener {
+public  class TerminalFragment extends Fragment implements ServiceConnection, SerialListener {
 
     private enum Connected { False, Pending, True }
 
