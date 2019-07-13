@@ -34,25 +34,28 @@ public class DbHelper_HrvData extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String checkCreate = SharedPreferenceManager.getFromPreference(myContext, TB_HRVDATA);
-        if (checkCreate.isEmpty() || checkCreate.equals("") || checkCreate.equals("false")) {
-            createDatabase(db);
-            SharedPreferenceManager.saveIntoPreference(myContext, "true", TB_HRVDATA);
-        }
+
     }
 
-    private void createDatabase (SQLiteDatabase db) {
-        final String query = "CREATE TABLE IF NOT EXISTS " + TB_HRVDATA + " (" +
-                "" + RW_HRVDATA__ID +" INTEGER PRIMARY KEY, " +
-                "" + RW_HRVDATA_HRVRESULT + " INTEGER NOT NULL, " +
-                "" + RW_HRVDATA_BPMAVG + " INTEGER NOT NULL, " +
-                "" + RW_HRVDATA_COMMENT + " TEXT NOT NULL, " +
-                "" + RW_HRVDATA_EMOT + " INTEGER NOT NULL, " +
-                "" + RW_HRVDATA_LASTUPDATE + " TEXT NOT NULL);";
-        try {
-            db.execSQL(query);
-        } catch (SQLException e) {
-            Log.e("Create Query", "cannot create new HRVDATA table!");
+    public void createDatabase () {
+        String checkCreate = SharedPreferenceManager.getFromPreference(myContext, TB_HRVDATA);
+        if (checkCreate.isEmpty() || checkCreate.equals("") || checkCreate.equals("false")) {
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            final String query = "CREATE TABLE IF NOT EXISTS " + TB_HRVDATA + " (" +
+                    "" + RW_HRVDATA__ID +" INTEGER PRIMARY KEY, " +
+                    "" + RW_HRVDATA_HRVRESULT + " INTEGER NOT NULL, " +
+                    "" + RW_HRVDATA_BPMAVG + " INTEGER NOT NULL, " +
+                    "" + RW_HRVDATA_COMMENT + " TEXT NOT NULL, " +
+                    "" + RW_HRVDATA_EMOT + " INTEGER NOT NULL, " +
+                    "" + RW_HRVDATA_LASTUPDATE + " TEXT NOT NULL);";
+            try {
+                db.execSQL(query);
+            } catch (SQLException e) {
+                Log.e("Create Query", "cannot create new HRVDATA table!");
+            }
+
+            SharedPreferenceManager.saveIntoPreference(myContext, "true", TB_HRVDATA);
         }
     }
 

@@ -34,28 +34,28 @@ public class DbHelper_HelpMenu extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String checkCreate = SharedPreferenceManager.getFromPreference(myContext, TB_HELPMENU);
-        if (checkCreate.isEmpty() || checkCreate.equals("") || checkCreate.equals("false")) {
-            Log.d("HelpMenu", "create database");
-            createDatabase(db);
-            Log.d("HelpMenu", "create shared pref");
-            SharedPreferenceManager.saveIntoPreference(myContext, "true", TB_HELPMENU);
-            Log.d("HelpMenu", "create data");
-            InitializeHelpMenu.initialize(myContext);
-        }
+
     }
 
-    private void createDatabase (SQLiteDatabase db) {
-        final String query = "CREATE TABLE IF NOT EXISTS " + TB_HELPMENU + " (" +
-                "" + RW_HELPMENU__ID +" INTEGER PRIMARY KEY, " +
-                "" + RW_HELPMENU_TITLE + " TEXT NOT NULL, " +
-                "" + RW_HELPMENU_IMAGE + " INTEGER NOT NULL, " +
-                "" + RW_HELPMENU_SUBTITLE + " TEXT NOT NULL, " +
-                "" + RW_HELPMENU_DESCRIPTION + " TEXT NOT NULL);";
-        try {
-            db.execSQL(query);
-        } catch (SQLException e) {
-            Log.e("Create Query", "cannot create new HELPMENU table!");
+    public void createDatabase () {
+        String checkCreate = SharedPreferenceManager.getFromPreference(myContext, TB_HELPMENU);
+        if (checkCreate.isEmpty() || checkCreate.equals("") || checkCreate.equals("false")) {
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            final String query = "CREATE TABLE IF NOT EXISTS " + TB_HELPMENU + " (" +
+                    "" + RW_HELPMENU__ID +" INTEGER PRIMARY KEY, " +
+                    "" + RW_HELPMENU_TITLE + " TEXT NOT NULL, " +
+                    "" + RW_HELPMENU_IMAGE + " INTEGER NOT NULL, " +
+                    "" + RW_HELPMENU_SUBTITLE + " TEXT NOT NULL, " +
+                    "" + RW_HELPMENU_DESCRIPTION + " TEXT NOT NULL);";
+            try {
+                db.execSQL(query);
+            } catch (SQLException e) {
+                Log.e("Create Query", "cannot create new HELPMENU table!");
+            }
+
+            SharedPreferenceManager.saveIntoPreference(myContext, "true", TB_HELPMENU);
+            InitializeHelpMenu.initialize(myContext);
         }
     }
 

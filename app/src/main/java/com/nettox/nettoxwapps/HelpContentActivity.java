@@ -12,6 +12,13 @@ import com.nettox.nettoxwapps.DbModel.DbModel_HelpMenu;
 
 public class HelpContentActivity extends AppCompatActivity {
 
+    private final int[] image = new int[]{
+            R.drawable.heart_white,
+            R.drawable.help2,
+            R.drawable.help3,
+            R.drawable.help4,
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,13 +35,13 @@ public class HelpContentActivity extends AppCompatActivity {
 
         DbModel_HelpMenu item = dbHelper.getHelp(Integer.valueOf(dataId));
 
+        // set texts
         TV_title.setText(item.getTitle());
         TV_subtitle.setText(item.getSubtitle());
         TV_description.setText(item.getDescription());
 
-        int imageResource = item.getImage();
-
-        // dummy image
-        IV_image.setImageResource(R.drawable.good);
+        // set image
+        int imageResource = item.getImage() - 1;
+        IV_image.setImageResource(image[imageResource]);
     }
 }

@@ -36,23 +36,26 @@ public class DbHelper_TimeUsage extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String checkCreate = SharedPreferenceManager.getFromPreference(myContext, TB_TIMEUSAGE);
-        if (checkCreate.isEmpty() || checkCreate.equals("") || checkCreate.equals("false")) {
-            createDatabase(db);
-            SharedPreferenceManager.saveIntoPreference(myContext, "true", TB_TIMEUSAGE);
-        }
+
     }
 
-    private void createDatabase (SQLiteDatabase db) {
-        final String query = "CREATE TABLE IF NOT EXISTS " + TB_TIMEUSAGE + " (" +
-                "" + RW_TIMEUSAGE__ID +" INTEGER PRIMARY KEY, " +
-                "" + RW_TIMEUSAGE_LASTPHONESLEEP + " INTEGER NOT NULL, " +
-                "" + RW_TIMEUSAGE_PHONETIMEUSAGE + " INTEGER NOT NULL, " +
-                "" + RW_TIMEUSAGE_LASTUPDATE + " TEXT NOT NULL);";
-        try {
-            db.execSQL(query);
-        } catch (SQLException e) {
-            Log.e("Create Query", "cannot create new TIMEUSAGE table!");
+    public void createDatabase () {
+        String checkCreate = SharedPreferenceManager.getFromPreference(myContext, TB_TIMEUSAGE);
+        if (checkCreate.isEmpty() || checkCreate.equals("") || checkCreate.equals("false")) {
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            final String query = "CREATE TABLE IF NOT EXISTS " + TB_TIMEUSAGE + " (" +
+                    "" + RW_TIMEUSAGE__ID +" INTEGER PRIMARY KEY, " +
+                    "" + RW_TIMEUSAGE_LASTPHONESLEEP + " INTEGER NOT NULL, " +
+                    "" + RW_TIMEUSAGE_PHONETIMEUSAGE + " INTEGER NOT NULL, " +
+                    "" + RW_TIMEUSAGE_LASTUPDATE + " TEXT NOT NULL);";
+            try {
+                db.execSQL(query);
+            } catch (SQLException e) {
+                Log.e("Create Query", "cannot create new TIMEUSAGE table!");
+            }
+
+            SharedPreferenceManager.saveIntoPreference(myContext, "true", TB_TIMEUSAGE);
         }
     }
 

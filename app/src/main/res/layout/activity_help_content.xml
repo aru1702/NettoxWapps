@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorSlide"
+    android:background="@color/colorBackground"
     android:orientation="vertical"
     tools:context=".HelpContentActivity">
 
@@ -24,6 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
+                android:textColor="@color/colorSlide"
                 android:textSize="40sp"
                 android:textStyle="bold"
                 tools:text="JUDUL" />
@@ -40,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textAlignment="textEnd"
+                android:textColor="@color/colorSlide"
                 android:textSize="30sp"
                 android:textStyle="italic"
                 tools:text="Ini adalah sub title" />
@@ -49,6 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="30dp"
+                android:textColor="@color/colorSlide"
                 android:textSize="24sp"
                 tools:text="Ini adalah isi konten" />
 

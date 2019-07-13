@@ -30,23 +30,26 @@ public class DbHelper_LastId extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String checkCreate = SharedPreferenceManager.getFromPreference(this.myContext, TB_LASTID);
-        if (checkCreate.isEmpty() || checkCreate.equals("") || checkCreate.equals("false")) {
-            createDatabase(db);
-            setInitialValueId(db);
-            SharedPreferenceManager.saveIntoPreference(myContext, "true", TB_LASTID);
-        }
+
     }
 
-    private void createDatabase (SQLiteDatabase db) {
-        final String query = "CREATE TABLE IF NOT EXISTS " + TB_LASTID + " (" +
-                "" + RW_LASTID_NAME +" TEXT NOT NULL, " +
-                "" + RW_LASTID_LASTINPUT + " INTEGER NOT NULL);";
-        try {
-            db.execSQL(query);
+    public void createDatabase () {
+        String checkCreate = SharedPreferenceManager.getFromPreference(this.myContext, TB_LASTID);
+        if (checkCreate.isEmpty() || checkCreate.equals("") || checkCreate.equals("false")) {
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            final String query = "CREATE TABLE IF NOT EXISTS " + TB_LASTID + " (" +
+                    "" + RW_LASTID_NAME +" TEXT NOT NULL, " +
+                    "" + RW_LASTID_LASTINPUT + " INTEGER NOT NULL);";
+            try {
+                db.execSQL(query);
+                setInitialValueId(db);
+            } catch (SQLException e) {
+                Log.e("Create Query: ", "cannot create new LASTID table!");
+            }
+
             setInitialValueId(db);
-        } catch (SQLException e) {
-            Log.e("Create Query: ", "cannot create new LASTID table!");
+            SharedPreferenceManager.saveIntoPreference(myContext, "true", TB_LASTID);
         }
     }
 

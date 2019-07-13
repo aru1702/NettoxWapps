@@ -32,4 +32,16 @@ public class StaticFieldVariables {
     public static final String RW_TIMEUSAGE_LASTPHONESLEEP = "last_phone_sleep";
     public static final String RW_TIMEUSAGE_PHONETIMEUSAGE = "phone_time_usage";
     public static final String RW_TIMEUSAGE_LASTUPDATE = "last_update";
+
+    public static final String TIMEUSAGE_LASTDATE_ID = "tm_ld__id";
+    public static final String TIMEUSAGE_LASTDATE_DATE = "tm_ld_date";
+    public static final String TIMEUSAGE_LASTDATE_MONTH = "tm_ld_month";
+    public static final String TIMEUSAGE_LASTDATE_YEAR = "tm_ld_year";
+    public static final String TIMEUSAGE_NOWDATE_ID = "tm_nd__id";
+    public static final String TIMEUSAGE_NOWDATE_DATE = "tm_nd_date";
+    public static final String TIMEUSAGE_NOWDATE_MONTH = "tm_nd_month";
+    public static final String TIMEUSAGE_NOWDATE_YEAR = "tm_nd_year";
+
+    public static final String CONFIG_ALERT_TIMEUSAGE = "alert_timeusage";
+    public static final String CONFIG_BLUETOOTH__ID = "bluetooth__id";
 }

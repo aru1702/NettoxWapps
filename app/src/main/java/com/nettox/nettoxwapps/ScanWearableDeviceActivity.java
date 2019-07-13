@@ -3,11 +3,11 @@ package com.nettox.nettoxwapps;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class SetupActivity extends AppCompatActivity {
+public class ScanWearableDeviceActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setup);
+        setContentView(R.layout.activity_scan_wearable_device);
     }
 }

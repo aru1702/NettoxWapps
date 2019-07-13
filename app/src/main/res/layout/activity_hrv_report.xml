@@ -64,12 +64,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="208dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:text="@string/no_items_is_showed"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageV_report_goBack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageV_report_line"
-        android:textColor="#000000"
-        android:textSize="24sp"/>
+        app:layout_constraintTop_toBottomOf="@+id/imageV_report_line" />
 </android.support.constraint.ConstraintLayout>

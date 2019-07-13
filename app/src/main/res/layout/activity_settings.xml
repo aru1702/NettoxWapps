@@ -43,6 +43,13 @@
                 android:padding="20dp"
                 app:srcCompat="@drawable/btn_setting_setdevice" />
 
+            <ImageView
+                android:id="@+id/imgV_setting_set2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                app:srcCompat="@drawable/btn_setting_setalert" />
+
         </LinearLayout>
 
     </ScrollView>
